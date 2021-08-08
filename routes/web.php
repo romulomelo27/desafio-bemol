@@ -25,5 +25,5 @@ Route::prefix('igrejas')->group(function () {
 
     Route::get('/', [App\Http\Controllers\IgrejasController::class, 'index'])->name('igrejas');
     Route::get('/cadastro', [App\Http\Controllers\IgrejasController::class, 'viewCadastro'])->name('igrejas.cadastro');
-    Route::post('/cadastro', [App\Http\Controllers\IgrejasController::class, 'cadastraAdd'])->name('igrejas.cadastro.add');
+    Route::post('/cadastro', [App\Http\Controllers\IgrejasController::class, 'cadastroAdd'])->name('igrejas.cadastro.add');
 });

@@ -16,7 +16,20 @@
 <div class="card">
     <div class="card-header bg-primary">Cadastrar Nova Igreja</div>
     <div class="card-body">
-        <form action="">
+        @if(session('status_sucesso'))
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{session('status_sucesso')}}
+        </div>
+        @endif
+        @if(session('status_error'))
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{session('status_error')}}
+        </div>
+        @endif
+        <form action="{{route('igrejas.cadastro.add')}}" method="POST">
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
