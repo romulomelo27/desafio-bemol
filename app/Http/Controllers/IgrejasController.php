@@ -19,7 +19,8 @@ class IgrejasController extends Controller
 
     public function index()
     {
-        return view('igrejas.listar');
+        $igrejas = Igreja::all();
+        return view('igrejas.listar', compact('igrejas'));
     }
 
     public function viewCadastro()

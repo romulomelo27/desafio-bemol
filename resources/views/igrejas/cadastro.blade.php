@@ -119,7 +119,7 @@
                   <input type="text" class="form-control" name="celular" id="celular" maxlength="15">
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="email">E-mail</label>
                   <input type="email" class="form-control" name="email" id="email" maxlength="60">
@@ -131,6 +131,15 @@
                   <select name="tipo" id="tipo" class="form-control">
                       <option value="i">Igreja</option>
                       <option value="c">Congregação</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="tipo">Status</label>
+                  <select name="ativo" id="ativo" class="form-control">
+                      <option value="1">Ativo</option>
+                      <option value="0">Inativo</option>
                   </select>
                 </div>
               </div>
