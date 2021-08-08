@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('igrejas')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\IgrejasController::class, 'index'])->name('igrejas');
+    Route::get('/cadastro', [App\Http\Controllers\IgrejasController::class, 'viewCadastro'])->name('igrejas.cadastro');
+    Route::post('/cadastro', [App\Http\Controllers\IgrejasController::class, 'cadastraAdd'])->name('igrejas.cadastro.add');
+});

@@ -261,7 +261,7 @@ return [
         ],
         [
             'text' => 'Membros',
-            'url'  => 'admin/settings',
+            'url'  => 'membros',
             'icon' => 'fas fa-fw fa-users',
         ],
         [
