@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\Igreja;
+use App\Models\Pessoa;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Laravel\Ui\Presets\React;
 
 class IgrejasController extends Controller
 {
@@ -19,7 +21,7 @@ class IgrejasController extends Controller
 
     public function index()
     {
-        $igrejas = Igreja::all();
+        $igrejas = Igreja::all();        
         return view('igrejas.listar', compact('igrejas'));
     }
 
@@ -27,8 +29,9 @@ class IgrejasController extends Controller
     {
         $estados = Estado::all();
         $cidades = Cidade::all();
+        $pessoas = Pessoa::all();
 
-        return view('igrejas.cadastro',compact('estados','cidades'));
+        return view('igrejas.cadastro',compact('estados','cidades','pessoas'));
     }
 
     public function cadastroAdd(Request $resquest){
@@ -43,6 +46,32 @@ class IgrejasController extends Controller
 
             Log::erro("Erro ao cadastrar nova igreja. Erro: ". $e->getMessage());
             return redirect()->route('igrejas.cadastro')->with(['status_error'=>'Erro ao cadastrar nova igreja'.$e->getMessage()]);
+        }
+
+    }
+
+    public function viewEditar(int $id_igreja){
+
+        $estados = Estado::all();
+        $cidades = Cidade::all();
+        $pessoas = Pessoa::all();
+        $igreja  = Igreja::find($id_igreja);  
+
+        return view('igrejas.editar',compact('estados','cidades','pessoas','igreja'));
+    }
+
+    public function salvarEdicao(Request $resquest){
+
+        try{
+            $editar = $resquest->except('_token');
+            Igreja::find($editar['id'])->update($editar);
+            Log::info("Igreja editada. Id: ".$editar['id']." Por: ". Auth::user()->name);
+            return redirect()->route('igrejas.editar',['id_igreja'=>$editar['id']])->with(['status_sucesso'=>'Igreja editada com sucesso']);
+        }
+        catch(Exception $e){
+
+            Log::erro("Erro ao edita igreja. Erro: ". $e->getMessage());
+            return redirect()->route('igrejas.editar',['id_igreja'=>$editar['id']])->with(['status_error'=>'Erro ao editar igreja'.$e->getMessage()]);
         }
 
     }

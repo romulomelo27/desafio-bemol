@@ -29,9 +29,9 @@
                 <td>{{$igreja->tipo == 'i'? 'Igreja':'Congregação' }}</td>
                 <td>{{$igreja->telefone}}</td>
                 <td>{{$igreja->email}}</td>
-                <td>{{$igreja->status == "1" ? 'Ativo' : 'Inativo'}}</td>
+                <td>{{$igreja->ativo == "1" ? 'Ativo' : 'Inativo'}}</td>
                 <td> 
-                  <a href="" class="btn btn-warning btn-sm">Editar</a>
+                  <a href="{{route('igrejas.editar',['id_igreja'=>$igreja->id])}}" class="btn btn-warning btn-sm">Editar</a>
                   <a href="" class="btn btn-secondary btn-sm">Imprimir</a>
                 </td>
               </tr>
