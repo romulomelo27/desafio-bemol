@@ -260,15 +260,10 @@ return [
             'icon' => 'fas fa-fw fa-church',
         ],
         [
-            'text' => 'Membros',
-            'url'  => 'membros',
+            'text' => 'Pessoas',
+            'url'  => 'pessoas',
             'icon' => 'fas fa-fw fa-users',
-        ],
-        [
-            'text' => 'Visitantes',
-            'url'  => 'visitantes',
-            'icon' => 'fas fa-fw fa-male'
-        ],
+        ],        
         [
             'text' => 'Tesouraria',            
             'icon' => 'fas fa-fw fa-hand-holding-usd',

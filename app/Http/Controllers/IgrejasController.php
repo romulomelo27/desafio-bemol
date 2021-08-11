@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Laravel\Ui\Presets\React;
 
 class IgrejasController extends Controller
 {
@@ -38,13 +37,15 @@ class IgrejasController extends Controller
 
         try{
             $cadastro = $resquest->all();
+            $cadastro['cnpj'] = $this->removeMascara($cadastro['cnpj']);
+            $cadastro['cep'] = $this->removeMascara($cadastro['cep']);
             $setIgreja = Igreja::create($cadastro);
             Log::info("Nova Igreja cadastra. Id: ".$setIgreja->id." Por: ". Auth::user()->name);
             return redirect()->route('igrejas.cadastro')->with(['status_sucesso'=>'Igreja cadastrada com sucesso']);
         }
         catch(Exception $e){
 
-            Log::erro("Erro ao cadastrar nova igreja. Erro: ". $e->getMessage());
+            Log::error("Erro ao cadastrar nova igreja. Erro: ". $e->getMessage());
             return redirect()->route('igrejas.cadastro')->with(['status_error'=>'Erro ao cadastrar nova igreja'.$e->getMessage()]);
         }
 
@@ -64,15 +65,25 @@ class IgrejasController extends Controller
 
         try{
             $editar = $resquest->except('_token');
+            $editar['cnpj'] = $this->removeMascara($editar['cnpj']);
+            $editar['cep'] = $this->removeMascara($editar['cep']);            
             Igreja::find($editar['id'])->update($editar);
             Log::info("Igreja editada. Id: ".$editar['id']." Por: ". Auth::user()->name);
             return redirect()->route('igrejas.editar',['id_igreja'=>$editar['id']])->with(['status_sucesso'=>'Igreja editada com sucesso']);
         }
         catch(Exception $e){
 
-            Log::erro("Erro ao edita igreja. Erro: ". $e->getMessage());
+            Log::error("Erro ao edita igreja. Erro: ". $e->getMessage());
             return redirect()->route('igrejas.editar',['id_igreja'=>$editar['id']])->with(['status_error'=>'Erro ao editar igreja'.$e->getMessage()]);
         }
 
+    }
+    private function removeMascara($var){
+
+        $var = str_replace('.','',$var);
+        $var = str_replace('-','',$var);
+        $var = str_replace('/','',$var);
+
+        return $var;
     }
 }

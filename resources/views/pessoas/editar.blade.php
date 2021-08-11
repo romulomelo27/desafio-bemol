@@ -5,8 +5,8 @@
 @section('content_header')
 <nav>
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{route('igrejas')}}">Igrejas</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edição</li>
+    <li class="breadcrumb-item"><a href="{{route('pessoas')}}">Pessoas</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
   </ol>
 </nav>
 
@@ -14,7 +14,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header bg-primary">Editar Igreja</div>
+    <div class="card-header bg-primary">Cadastrar Nova Pessoa</div>
     <div class="card-body">
         @if(session('status_sucesso'))
         <div class="alert alert-success alert-dismissible">
@@ -28,46 +28,53 @@
           {{session('status_error')}}
         </div>
         @endif
-        <form action="{{route('igrejas.editar.salvar')}}" method="POST">
+        <form action="{{route('pessoas.editar.salvar')}}" method="POST">
             @csrf
-            <input type="hidden" name="id" value="{{$igreja->id}}">
+            <input type="hidden" name="id" value="{{$pessoa->id}}">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label for="razao_social">Razão Social</label>
-                      <input type="text" class="form-control" name="razao_social" id="razao_social" maxlength="150" value="{{$igreja->razao_social}}">
+                      <label for="nome">Nome<span style="color: red">*</span></label>
+                      <input type="text" class="form-control" name="nome" id="nome" maxlength="150" value="{{$pessoa->nome}}">
                     </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="nome_fantasia">Nome Fantasia <span style="color: red">*</span></label>
-                    <input type="text" class="form-control" name="nome_fantasia" id="nome_fantasia" maxlength="150" value="{{$igreja->nome_fantasia}}">
+                    <label for="igreja">Igreja <span style="color: red">*</span></label>
+                    <select name="id_igreja" id="id_igreja" class="form-control" required>
+                      <option value="">Selecione</option>
+                      @foreach ($igrejas as $igreja)
+                      <option value="{{$igreja->id}}" {{$igreja->id == $pessoa->id_igreja ? 'selected' : ''}}>
+                        {{$igreja->nome_fantasia}}
+                      </option>
+                      @endforeach                      
+                  </select>
                   </div>
                 </div>              
             </div>   
             <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label for="apelido">Apelido</label>
-                    <input type="text" class="form-control" name="apelido" id="apelido" maxlength="60" value="{{$igreja->apelido}}">
+                    <label for="rg">RG</label>
+                    <input type="text" class="form-control" name="rg" id="rg" maxlength="30" value="{{$pessoa->rg}}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label for="cnpj">CNPJ</label>
-                    <input type="text" class="form-control" name="cnpj" id="cnpj" value="{{$igreja->cnpj}}">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" name="cpf" id="cpf" value="{{$pessoa->cpf}}">
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="cep">CEP</label>
-                    <input type="text" class="form-control" name="cep" id="cep" value="{{$igreja->cep}}">
+                    <input type="text" class="form-control" name="cep" id="cep" value="{{$pessoa->cep}}">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="rua">Rua</label>
-                    <input type="text" class="form-control" name="rua" id="rua" maxlength="100" value="{{$igreja->rua}}">
+                    <input type="text" class="form-control" name="rua" id="rua" maxlength="100" value="{{$pessoa->rua}}">
                   </div>
                 </div>
             </div>  
@@ -75,80 +82,67 @@
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="numero">Número</label>
-                  <input type="text" class="form-control" name="numero" id="numero" maxlength="8" value="{{$igreja->numero}}">
+                  <input type="text" class="form-control" name="numero" id="numero" maxlength="8" value="{{$pessoa->numero}}">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="complemento">Complemento</label>
-                  <input type="text" class="form-control" name="complemento" id="complemento" maxlength="80" value="{{$igreja->complemento}}">
+                  <input type="text" class="form-control" name="complemento" id="complemento" maxlength="80" value="{{$pessoa->complemento}}">
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label for="estado">Estado</label>
                   <select name="id_estado" id="id_estado" class="form-control" required>
                       <option value="">Selecione</option>
                       @foreach ($estados as $estado)
-                      <option value="{{$estado->id}}" {{$estado->id == $igreja->id_estado ? 'selected' : ''}}>
-                        {{$estado->nome}}
-                      </option>
+                        <option value="{{$estado->id}}" {{$estado->id == $pessoa->id_estado ? 'selected' : ''}}>
+                          {{$estado->nome}}
+                        </option>
                       @endforeach                      
                   </select>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label for="cidade">Cidade</label>
                   <select name="id_cidade" id="id_cidade" class="form-control" required>
                       <option value="">Selecione</option>
                       @foreach ($cidades as $cidade)
-                      <option value="{{$cidade->id}}" {{$cidade->id == $igreja->id_cidade ? 'selected' : ''}}>
+                      <option value="{{$cidade->id}}" {{$cidade->id == $pessoa->id_cidade ? 'selected':''}}>
                         {{$cidade->nome}}
                       </option>
                       @endforeach                      
                   </select>
                 </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="cidade">Responsável</label>
-                  <select name="id_responsavel" id="id_responsavel" class="form-control">
-                      <option value="">Selecione</option>
-                      @foreach ($pessoas as $pessoa)
-                      <option value="{{$pessoa->id}}" {{$pessoa->id == $igreja->id_responsavel ? 'selected' : ''}}>
-                        {{$pessoa->nome}}
-                      </option>
-                      @endforeach                      
-                  </select>
-                </div>
-              </div>
+              </div>              
             </div> 
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="telefone">Telefone</label>
-                  <input type="text" class="form-control" name="telefone" id="telefone" maxlength="15" value="{{$igreja->telefone}}">
+                  <input type="text" class="form-control" name="telefone" id="telefone" maxlength="15" value="{{$pessoa->telefone}}">
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="celular">Celular</label>
-                  <input type="text" class="form-control" name="celular" id="celular" maxlength="15" value="{{$igreja->celular}}">
+                  <input type="text" class="form-control" name="celular" id="celular" maxlength="15" value="{{$pessoa->celular}}">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="email">E-mail</label>
-                  <input type="email" class="form-control" name="email" id="email" maxlength="60" value="{{$igreja->email}}">
+                  <input type="email" class="form-control" name="email" id="email" maxlength="60" value="{{$pessoa->email}}">
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group">
                   <label for="tipo">Tipo</label>
                   <select name="tipo" id="tipo" class="form-control">
-                      <option value="i" {{$igreja->tipo == 'i' ? 'selected' : ''}}>Igreja</option>
-                      <option value="c" {{$igreja->tipo == 'c' ? 'selected' : ''}}>Congregação</option>
+                      <option value="m" {{$pessoa->tipo == 'm' ? 'selected':''}}>Membro</option>
+                      <option value="v" {{$pessoa->tipo == 'v' ? 'selected':''}}>Visitante</option>
                   </select>
                 </div>
               </div>
@@ -156,8 +150,8 @@
                 <div class="form-group">
                   <label for="tipo">Status</label>
                   <select name="ativo" id="ativo" class="form-control">
-                      <option value="1" {{$igreja->ativo == 1 ? 'selected' : ''}}>Ativo</option>
-                      <option value="0" {{$igreja->ativo == 0 ? 'selected' : ''}}>Inativo</option>
+                      <option value="1">Ativo</option>
+                      <option value="0">Inativo</option>
                   </select>
                 </div>
               </div>

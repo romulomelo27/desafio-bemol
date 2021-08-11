@@ -12,6 +12,7 @@ class Pessoa extends Model
     protected $fillable = [
         'id',
         'nome',
+        'id_igreja',
         'cpf',
         'rg',
         'cep',
@@ -25,8 +26,7 @@ class Pessoa extends Model
         'email',
         'logo',
         'ativo',
-        'id_tipo',
-        'foto',
-        'id_pessoa'
+        'tipo',
+        'foto'        
     ];
 }

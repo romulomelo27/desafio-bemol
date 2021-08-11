@@ -3,33 +3,33 @@
 @section('title', 'Igreja Digital')
 
 @section('content_header')
-<a href="{{route('igrejas.cadastro')}}" class="btn btn-primary"><i class="fas fa-fw fa-church"></i> Nova Igreja</a>
+<a href="{{route('pessoas.cadastro')}}" class="btn btn-primary"><i class="fas fa-fw fa-users"></i> Nova Pessoa</a>
 <a href="#" target="_blank" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
 @stop
 
 @section('content')
 <div class="card">
-    <div class="card-header bg-primary">Lista de Igrejas</div>
+    <div class="card-header bg-primary">Lista de Pessoas</div>
     <div class="card-body">
         <table class="table table-striped table-sm table-hover">
             <thead>
               <tr>
-                <th>Nome Fantasia</th>
+                <th>Nome</th>
                 <th>Tipo</th>
-                <th>Telefone</th>
+                <th>Celular</th>
                 <th>Email</th>
                 <th>Status</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($igrejas as $igreja)
+              @foreach ($pessoas as $pessoa)
               <tr>
-                <td>{{$igreja->nome_fantasia}}</td>
-                <td>{{$igreja->tipo == 'i'? 'Igreja':'Congregação' }}</td>
-                <td>{{$igreja->telefone}}</td>
-                <td>{{$igreja->email}}</td>
-                <td>{{$igreja->ativo == "1" ? 'Ativo' : 'Inativo'}}</td>
+                <td>{{$pessoa->nome}}</td>
+                <td>{{$pessoa->tipo == 'm'? 'Membro':'Visitante' }}</td>
+                <td>{{$pessoa->celular}}</td>
+                <td>{{$pessoa->email}}</td>
+                <td>{{$pessoa->ativo == "1" ? 'Ativo' : 'Inativo'}}</td>
                 <td> 
                   <div class="btn-group">
                     <div class="btn-group">
@@ -37,7 +37,7 @@
                       Opções
                       </button>
                       <div class="dropdown-menu">                        
-                        <a class="dropdown-item" href="{{route('igrejas.editar',['id_igreja'=>$igreja->id])}}">Editar</a>
+                        <a class="dropdown-item" href="{{route('pessoas.editar',['id_pessoa'=>$pessoa->id])}}">Editar</a>
                         <a class="dropdown-item" href="#" target="_target">Imprimir</a>
                       </div>
                     </div>

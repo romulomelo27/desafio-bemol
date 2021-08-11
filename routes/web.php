@@ -29,3 +29,12 @@ Route::prefix('igrejas')->group(function () {
     Route::get('/editar/{id_igreja}', [App\Http\Controllers\IgrejasController::class, 'viewEditar'])->name('igrejas.editar');
     Route::post('/editar', [App\Http\Controllers\IgrejasController::class, 'salvarEdicao'])->name('igrejas.editar.salvar');
 });
+
+Route::prefix('pessoas')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\PessoasController::class, 'index'])->name('pessoas');
+    Route::get('/cadastro', [App\Http\Controllers\PessoasController::class, 'viewCadastro'])->name('pessoas.cadastro');
+    Route::post('/cadastro', [App\Http\Controllers\PessoasController::class, 'cadastroAdd'])->name('pessoas.cadastro.add');
+    Route::get('/editar/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'viewEditar'])->name('pessoas.editar');
+    Route::post('/editar', [App\Http\Controllers\PessoasController::class, 'salvarEdicao'])->name('pessoas.editar.salvar');
+});
