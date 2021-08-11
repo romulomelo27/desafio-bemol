@@ -26,6 +26,7 @@ class Igreja extends Model
         'email',
         'logo',
         'ativo',
-        'tipo'
+        'tipo',
+        'id_responsavel'
     ];
 }

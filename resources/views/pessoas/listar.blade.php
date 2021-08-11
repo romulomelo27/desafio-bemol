@@ -17,7 +17,7 @@
                 <th>Nome</th>
                 <th>Tipo</th>
                 <th>Celular</th>
-                <th>Email</th>
+                <th>Igreja</th>
                 <th>Status</th>
                 <th>Ações</th>
               </tr>
@@ -28,7 +28,7 @@
                 <td>{{$pessoa->nome}}</td>
                 <td>{{$pessoa->tipo == 'm'? 'Membro':'Visitante' }}</td>
                 <td>{{$pessoa->celular}}</td>
-                <td>{{$pessoa->email}}</td>
+                <td>{{$pessoa->nome_fantasia}}</td>
                 <td>{{$pessoa->ativo == "1" ? 'Ativo' : 'Inativo'}}</td>
                 <td> 
                   <div class="btn-group">
@@ -38,6 +38,10 @@
                       </button>
                       <div class="dropdown-menu">                        
                         <a class="dropdown-item" href="{{route('pessoas.editar',['id_pessoa'=>$pessoa->id])}}">Editar</a>
+                        @if($pessoa->tipo == "m")
+                        <a class="dropdown-item" href="#" target="_target">Atribuições</a>
+                        @endif                        
+                        <a class="dropdown-item" href="#" target="_target">Foto</a>
                         <a class="dropdown-item" href="#" target="_target">Imprimir</a>
                       </div>
                     </div>

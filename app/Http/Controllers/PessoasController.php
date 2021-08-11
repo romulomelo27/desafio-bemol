@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class PessoasController extends Controller
 {
@@ -21,7 +22,7 @@ class PessoasController extends Controller
 
     public function index()
     {
-        $pessoas = Pessoa::all();        
+        $pessoas = DB::table('pessoas')->join('igrejas','igrejas.id','=','pessoas.id_igreja')->select('pessoas.*','igrejas.nome_fantasia')->paginate(20);
         return view('pessoas.listar', compact('pessoas'));
     }
 
@@ -44,7 +45,7 @@ class PessoasController extends Controller
             $cadastro['cep'] = $this->removeMascara($cadastro['cep']);
             $setPessoa = Pessoa::create($cadastro);
             Log::info("Nova pessoa cadastra. Id: ".$setPessoa->id." Por: ". Auth::user()->name);
-            return redirect()->route('pessoas.cadastro')->with(['status_sucesso'=>'Igreja pessoa com sucesso']);
+            return redirect()->route('pessoas.cadastro')->with(['status_sucesso'=>'Pessoa cadastrada com sucesso']);
         }
         catch(Exception $e){
 
