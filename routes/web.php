@@ -37,4 +37,6 @@ Route::prefix('pessoas')->group(function () {
     Route::post('/cadastro', [App\Http\Controllers\PessoasController::class, 'cadastroAdd'])->name('pessoas.cadastro.add');
     Route::get('/editar/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'viewEditar'])->name('pessoas.editar');
     Route::post('/editar', [App\Http\Controllers\PessoasController::class, 'salvarEdicao'])->name('pessoas.editar.salvar');
+    Route::get('/foto-perfil/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'viewFotoPefil'])->name('pessoas.foto.perfil');
+    Route::post('/foto-perfil', [App\Http\Controllers\PessoasController::class, 'fotoPefilSalvar'])->name('pessoas.foto.salvar');
 });

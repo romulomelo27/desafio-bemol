@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PessoasController extends Controller
 {
@@ -90,5 +91,36 @@ class PessoasController extends Controller
         $var = str_replace('-','',$var);
 
         return $var;
+    }
+
+    public function viewFotoPefil(int $id_pessoa)
+    {
+        $pessoa = Pessoa::find($id_pessoa);
+
+        return view('pessoas.foto-perfil', compact('pessoa'));
+    }
+
+    public function fotoPefilSalvar(Request $request)
+    {
+        try{
+
+            $pessoa = $request->all();
+
+            if (isset($pessoa["foto"])) {
+
+                $foto = $request->file("foto")->store("public/pessoas");
+
+                $foto = str_replace('public/','',$foto);
+
+                Pessoa::find($pessoa['id'])->update(['foto'=>$foto]);
+
+                return redirect()->route('pessoas.foto.perfil', ['id_pessoa' => $pessoa['id']])->with(['status_sucesso'=>'Foto salva com sucesso']);
+            }                 
+        }
+        catch(Exception $e){
+
+            return redirect()->route('pessoas.foto.perfil', ['id_pessoa' => $pessoa['id']])->with(['status_error'=>'Erro ao salvar foto. Erro: '. $e->getMessage()]);
+        }  
+        
     }
 }
