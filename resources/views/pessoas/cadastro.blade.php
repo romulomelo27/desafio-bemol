@@ -30,6 +30,7 @@
         @endif
         <form action="{{route('pessoas.cadastro.add')}}" method="POST">
             @csrf
+            <input type="hidden" value="{{url('')}}" id="url">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -102,11 +103,8 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label for="cidade">Cidade</label>
-                  <select name="id_cidade" id="idCidade" class="form-control enter" required>
-                      <option value="">Selecione</option>
-                      @foreach ($cidades as $cidade)
-                      <option value="{{$cidade->id}}">{{$cidade->nome}}</option>
-                      @endforeach                      
+                  <select name="id_cidade" id="idCidade" class="form-control enter" required disabled>
+                      <option value="">Selecione Estado</option>                                           
                   </select>
                 </div>
               </div>              

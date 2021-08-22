@@ -2,6 +2,8 @@ $("#cnpj").mask("99.999.999/9999-99", { reverse: true });
 $("#telefone").mask("(99)9999-9999", { reverse: true });
 $("#celular").mask("(99)9999-9999", { reverse: true });
 $("#cep").mask("99.999-999", { reverse: true });
+$("#rg").mask("99.99999-9", { reverse: true });
+$("#cpf").mask("999.999.999-99", { reverse: true });
 
 $("#cep").change(function () {
     if ($(this).val().length == 10) {

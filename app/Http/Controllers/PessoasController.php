@@ -31,11 +31,10 @@ class PessoasController extends Controller
     public function viewCadastro()
     {
         $estados = Estado::all();
-        $cidades = Cidade::all();
         $pessoas = Pessoa::all();
         $igrejas = Igreja::all();
 
-        return view('pessoas.cadastro',compact('estados','cidades','pessoas','igrejas'));
+        return view('pessoas.cadastro',compact('estados','pessoas','igrejas'));
     }
 
     public function cadastroAdd(Request $resquest){
