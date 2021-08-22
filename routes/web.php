@@ -29,6 +29,8 @@ Route::prefix('igrejas')->group(function () {
     Route::get('/editar/{id_igreja}', [App\Http\Controllers\IgrejasController::class, 'viewEditar'])->name('igrejas.editar');
     Route::post('/editar', [App\Http\Controllers\IgrejasController::class, 'salvarEdicao'])->name('igrejas.editar.salvar');
     Route::get('/get-cidades/{id_estado}', [App\Http\Controllers\IgrejasController::class, 'getCidades'])->name('igrejas.cidade');
+    Route::get('/impressao-detalhes/{id_igreja}', [App\Http\Controllers\IgrejasController::class, 'getDetalhesImpressao'])->name('igrejas.detalhes.impressao');
+    Route::get('/impressao-lista', [App\Http\Controllers\IgrejasController::class, 'listaImpressao'])->name('igrejas.lista.impressao');
 
 });
 

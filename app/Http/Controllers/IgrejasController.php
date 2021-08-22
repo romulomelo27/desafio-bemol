@@ -9,7 +9,9 @@ use App\Models\Pessoa;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 class IgrejasController extends Controller
 {
@@ -96,5 +98,25 @@ class IgrejasController extends Controller
 
             return response()->json(['erro'=>$e->getMessage()]);
         }
+    }
+
+    public function getDetalhesImpressao(int $id_igreja)
+    {
+        $igreja = Igreja::join('estados','igrejas.id_estado','=','estados.id')
+        ->join('cidades','igrejas.id_cidade','=','cidades.id')
+        ->select('igrejas.*',DB::raw('estados.nome as estado'), DB::raw('cidades.nome as cidade'))
+        ->where('igrejas.id',$id_igreja)->first();
+        $pdf = PDF::loadView('igrejas.detalhes-impressao-pdf', compact('igreja'));
+        return $pdf->stream('detalhes-igreja' . date('d_m_Y') . '.pdf');
+    }
+
+    public function listaImpressao(Request $resquest)
+    {
+        $igrejas = Igreja::join('estados','igrejas.id_estado','=','estados.id')
+        ->join('cidades','igrejas.id_cidade','=','cidades.id')
+        ->select('igrejas.*',DB::raw('estados.nome as estado'), DB::raw('cidades.nome as cidade'))
+        ->get();
+        $pdf = PDF::loadView('igrejas.lista-impressao-pdf', compact('igrejas'))->setPaper('a4', 'landscape');
+        return $pdf->stream('detalhes-igreja' . date('d_m_Y') . '.pdf');
     }
 }
