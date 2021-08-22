@@ -4,7 +4,7 @@
 
 @section('content_header')
 <a href="{{route('pessoas.cadastro')}}" class="btn btn-primary"><i class="fas fa-fw fa-users"></i> Nova Pessoa</a>
-<a href="#" target="_blank" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
+<a href="{{route('pessoas.lista.impressao')}}" target="_blank" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
 @stop
 
 @section('content')
@@ -42,7 +42,7 @@
                         <a class="dropdown-item" href="#" >Atribuições</a>
                         @endif                        
                         <a class="dropdown-item" href="{{route('pessoas.foto.perfil',['id_pessoa'=>$pessoa->id])}}">Foto</a>
-                        <a class="dropdown-item" href="#" target="_target">Imprimir</a>
+                        <a class="dropdown-item" href="{{route('pessoas.detalhes.impressao',['id_pessoa'=>$pessoa->id])}}" target="_target">Imprimir</a>
                       </div>
                     </div>
                   </div>                  

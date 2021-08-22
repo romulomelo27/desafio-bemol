@@ -117,6 +117,6 @@ class IgrejasController extends Controller
         ->select('igrejas.*',DB::raw('estados.nome as estado'), DB::raw('cidades.nome as cidade'))
         ->get();
         $pdf = PDF::loadView('igrejas.lista-impressao-pdf', compact('igrejas'))->setPaper('a4', 'landscape');
-        return $pdf->stream('detalhes-igreja' . date('d_m_Y') . '.pdf');
+        return $pdf->stream('lista-de-igrejas' . date('d_m_Y') . '.pdf');
     }
 }

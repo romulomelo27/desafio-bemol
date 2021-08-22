@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class PessoasController extends Controller
 {
@@ -122,5 +123,23 @@ class PessoasController extends Controller
             return redirect()->route('pessoas.foto.perfil', ['id_pessoa' => $pessoa['id']])->with(['status_error'=>'Erro ao salvar foto. Erro: '. $e->getMessage()]);
         }  
         
+    }
+
+    public function getDetalhesImpressao(int $id_pessoa)
+    {
+        $pessoa = Pessoa::join('estados','pessoas.id_estado','=','estados.id')
+        ->join('cidades','pessoas.id_cidade','=','cidades.id')
+        ->join('igrejas','pessoas.id_igreja','=','igrejas.id')
+        ->select('pessoas.*',DB::raw('estados.nome as estado'), DB::raw('cidades.nome as cidade'),DB::raw('igrejas.nome_fantasia'))
+        ->where('igrejas.id',$id_pessoa)->first();
+        $pdf = PDF::loadView('pessoas.detalhes-impressao-pdf', compact('pessoa'));
+        return $pdf->stream('detalhes-pessoa' . date('d_m_Y') . '.pdf');
+    }
+
+    public function listaImpressao(Request $resquest)
+    {
+        $pessoas = DB::table('pessoas')->join('igrejas','igrejas.id','=','pessoas.id_igreja')->select('pessoas.*','igrejas.nome_fantasia')->get();
+        $pdf = PDF::loadView('pessoas.lista-impressao-pdf', compact('pessoas'))->setPaper('a4', 'landscape');
+        return $pdf->stream('lista-de-pessoas' . date('d_m_Y') . '.pdf');
     }
 }
