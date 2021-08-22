@@ -166,5 +166,7 @@
         </form>
     </div>
 </div>
-
+@section('js')
+    <script src="{{asset('js/igreja.js')}}"></script>
+@endsection
 @stop

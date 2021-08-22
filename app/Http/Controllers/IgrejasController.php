@@ -27,10 +27,9 @@ class IgrejasController extends Controller
     public function viewCadastro()
     {
         $estados = Estado::all();
-        $cidades = Cidade::all();
         $pessoas = Pessoa::all();
 
-        return view('igrejas.cadastro',compact('estados','cidades','pessoas'));
+        return view('igrejas.cadastro',compact('estados','pessoas'));
     }
 
     public function cadastroAdd(Request $resquest){
@@ -85,5 +84,17 @@ class IgrejasController extends Controller
         $var = str_replace('/','',$var);
 
         return $var;
+    }
+
+    public function getCidades(int $id_estado)
+    {
+        try{
+            $cidades = Cidade::where('id_estado', $id_estado)->orderBy('nome')->get();
+            return response()->json($cidades);
+        }
+        catch(Exception $e){
+
+            return response()->json(['erro'=>$e->getMessage()]);
+        }
     }
 }

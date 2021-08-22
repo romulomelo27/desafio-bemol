@@ -28,6 +28,8 @@ Route::prefix('igrejas')->group(function () {
     Route::post('/cadastro', [App\Http\Controllers\IgrejasController::class, 'cadastroAdd'])->name('igrejas.cadastro.add');
     Route::get('/editar/{id_igreja}', [App\Http\Controllers\IgrejasController::class, 'viewEditar'])->name('igrejas.editar');
     Route::post('/editar', [App\Http\Controllers\IgrejasController::class, 'salvarEdicao'])->name('igrejas.editar.salvar');
+    Route::get('/get-cidades/{id_estado}', [App\Http\Controllers\IgrejasController::class, 'getCidades'])->name('igrejas.cidade');
+
 });
 
 Route::prefix('pessoas')->group(function () {

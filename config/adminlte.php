@@ -471,6 +471,26 @@ return [
                 ],
             ],
         ],
+        'Vue' => [
+            'active' => false,
+            'files' => [                
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/vue.js',
+                ],
+            ],
+        ],
+        'MaskInput' => [
+            'active' => true,
+            'files' => [                
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/mask-input.js',
+                ],
+            ],
+        ],
     ],
 
     /*

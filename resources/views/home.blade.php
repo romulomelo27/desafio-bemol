@@ -19,6 +19,6 @@ Painel
     </div>
     <div class="col-md-3">
         <x-adminlte-info-box title="0" text="Eventos" icon="fas fa-lg fa-calendar-check text-primary" theme="gradient-primary" icon-theme="white"/>
-    </div>
+    </div>    
 </div>
 @stop
