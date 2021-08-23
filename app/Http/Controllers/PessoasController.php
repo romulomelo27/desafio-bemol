@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atribuicoes;
 use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\Igreja;
 use App\Models\Pessoa;
-use App\Models\PessoaTipo;
+use App\Models\PessoaAtribuicoes;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -140,5 +141,45 @@ class PessoasController extends Controller
         $pessoas = DB::table('pessoas')->join('igrejas','igrejas.id','=','pessoas.id_igreja')->select('pessoas.*','igrejas.nome_fantasia')->get();
         $pdf = PDF::loadView('pessoas.lista-impressao-pdf', compact('pessoas'))->setPaper('a4', 'landscape');
         return $pdf->stream('lista-de-pessoas' . date('d_m_Y') . '.pdf');
+    }
+
+    public function atribuicoesView(int $id_pessoa)
+    {
+
+        $pessoa = Pessoa::find($id_pessoa);
+        $atribuicoes = Atribuicoes::all();
+        $get_pessoa_atribuicoes = PessoaAtribuicoes::where('id_pessoa', $id_pessoa)->get();
+        $pessoa_atribuicoes = $get_pessoa_atribuicoes->toArray();
+        // dd(array_search('t', array_column($pessoa_atribuicoes, 'id_atribuicao')));
+
+        return view('pessoas.atribuicoes', compact('pessoa','atribuicoes', 'pessoa_atribuicoes'));
+    }
+
+    public function atribuicoesSalvar(Request $request)
+    {
+        try{
+            $atribuicoes = $request->all();
+
+            PessoaAtribuicoes::where('id_pessoa',$atribuicoes['id_pessoa'])->delete();
+
+            if(isset($atribuicoes['atribuicoes'])){
+
+                foreach ($atribuicoes['atribuicoes'] as $atribuicao) {
+                    PessoaAtribuicoes::create(
+                        [
+                            'id_pessoa'     => $atribuicoes['id_pessoa'],
+                            'id_atribuicao' => $atribuicao
+                        ]
+                    );
+                }
+            }
+
+            return redirect()->route('pessoas.atribuicoes', ['id_pessoa' => $atribuicoes['id_pessoa']])->with(['status_sucesso'=>'Atribuições salvas com sucesso']);
+        }
+        catch(Exception $e){
+            
+            return redirect()->route('pessoas.atribuicoes', ['id_pessoa' => $atribuicoes['id_pessoa']])->with(['status_error'=>'Erro ao salvar atribuições. '. $e->getMessage()]);
+        }
+    
     }
 }

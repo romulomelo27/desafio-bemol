@@ -45,4 +45,6 @@ Route::prefix('pessoas')->group(function () {
     Route::post('/foto-perfil', [App\Http\Controllers\PessoasController::class, 'fotoPefilSalvar'])->name('pessoas.foto.salvar');
     Route::get('/impressao-detalhes/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'getDetalhesImpressao'])->name('pessoas.detalhes.impressao');
     Route::get('/impressao-lista', [App\Http\Controllers\PessoasController::class, 'listaImpressao'])->name('pessoas.lista.impressao');
+    Route::get('/atribuicoes/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'atribuicoesView'])->name('pessoas.atribuicoes');
+    Route::post('/atribuicoes', [App\Http\Controllers\PessoasController::class, 'atribuicoesSalvar'])->name('pessoas.atribuicoes.salvar');
 });

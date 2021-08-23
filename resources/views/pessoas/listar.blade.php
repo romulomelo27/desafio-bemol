@@ -39,7 +39,7 @@
                       <div class="dropdown-menu">                        
                         <a class="dropdown-item" href="{{route('pessoas.editar',['id_pessoa'=>$pessoa->id])}}">Editar</a>
                         @if($pessoa->tipo == "m")
-                        <a class="dropdown-item" href="#" >Atribuições</a>
+                        <a class="dropdown-item" href="{{route('pessoas.atribuicoes',['id_pessoa'=>$pessoa->id])}}" >Atribuições</a>
                         @endif                        
                         <a class="dropdown-item" href="{{route('pessoas.foto.perfil',['id_pessoa'=>$pessoa->id])}}">Foto</a>
                         <a class="dropdown-item" href="{{route('pessoas.detalhes.impressao',['id_pessoa'=>$pessoa->id])}}" target="_target">Imprimir</a>
