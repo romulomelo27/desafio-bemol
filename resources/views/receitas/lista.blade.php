@@ -18,7 +18,8 @@
             <th>Id</th>
             <th>Membro</th>
             <th>Valor</th>
-            <th>Tipo</th>
+            <th>Data</th>
+            <th>Categoria</th>
             <th>Igreja</th>
             <th>Ações</th>
           </tr>
@@ -28,7 +29,8 @@
           <tr>
             <td>{{$receita->id}}</td>
             <td>{{$receita->nome}}</td>
-            <td>{{number_format($receita->total,2,',','.')}}</td>
+            <td>R$ {{number_format($receita->total,2,',','.')}}</td>
+            <td>{{$receita->data_formatada}}</td>
             <td>{{$receita->descricao}}</td>
             <td>{{$receita->razao_social}}</td>
             <td>
@@ -37,8 +39,8 @@
                   Opções
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Link 1</a>
-                  <a class="dropdown-item" href="#">Link 2</a>
+                  <a class="dropdown-item" href="#">Recibo</a>
+                  <a class="dropdown-item" href="#">Editar</a>
                   <a class="dropdown-item" href="#">Link 3</a>
                 </div>
               </div> 

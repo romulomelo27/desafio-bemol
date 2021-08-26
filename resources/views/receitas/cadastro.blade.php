@@ -58,11 +58,11 @@
             </div>
             <div class="row">
                 <div class="col-md-2">
-                    <label for="Tipo">Tipo</label>
-                    <select name="id_tipo" id="idTipo" class="form-control enter" required>
+                    <label for="Tipo">categoria</label>
+                    <select name="id_categoria" id="idTipo" class="form-control enter" required>
                         <option value="">Selecione</option>
-                        @foreach ($receitas_tipos as $tipos)
-                        <option value="{{$tipos->id}}">{{$tipos->descricao}}</option>
+                        @foreach ($receitas_categorias as $categoria)
+                        <option value="{{$categoria->id}}">{{$categoria->descricao}}</option>
                         @endforeach
                     </select>
                 </div>

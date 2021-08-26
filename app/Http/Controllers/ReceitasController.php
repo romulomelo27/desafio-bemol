@@ -6,10 +6,11 @@ use App\Models\Conta;
 use App\Models\Igreja;
 use App\Models\Pessoa;
 use App\Models\Receita;
-use App\Models\ReceitaTipo;
+use App\Models\ReceitaCategoria;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ReceitasController extends Controller
@@ -23,8 +24,8 @@ class ReceitasController extends Controller
     {
         $receitas = Receita::join('pessoas','pessoas.id','=','receitas.id_pessoa')
                     ->join('igrejas','igrejas.id','=','receitas.id_igreja')
-                    ->join('receitas_tipos','receitas_tipos.id','=','receitas.id_tipo')
-                    ->select('receitas.*','igrejas.razao_social','pessoas.nome','receitas_tipos.descricao')
+                    ->join('receitas_categorias','receitas_categorias.id','=','receitas.id_categoria')
+                    ->select('receitas.*',DB::raw("date_format(receitas.data,'%d/%m/%Y') as data_formatada"),'igrejas.razao_social','pessoas.nome','receitas_categoria.descricao')
                     ->paginate(30);
                         
         return view('receitas.lista', compact('receitas'));
@@ -33,10 +34,10 @@ class ReceitasController extends Controller
     public function novaReceitaView()
     {
         $igrejas = Igreja::where('ativo','1')->get();
-        $receitas_tipos = ReceitaTipo::where('ativo',1)->get();
+        $receitas_categorias = ReceitaCategoria::where('ativo',1)->get();
         $contas = Conta::where('ativo',1)->get();        
 
-        return view('receitas.cadastro',compact('igrejas','receitas_tipos','contas'));
+        return view('receitas.cadastro',compact('igrejas','receitas_categorias','contas'));
     }
 
     public function novaReceitaSalvar(Request $request, GeraisController $geraisController)
