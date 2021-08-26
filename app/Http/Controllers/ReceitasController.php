@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conta;
+use App\Models\Extrato;
 use App\Models\Igreja;
 use App\Models\Pessoa;
 use App\Models\Receita;
@@ -25,7 +26,7 @@ class ReceitasController extends Controller
         $receitas = Receita::join('pessoas','pessoas.id','=','receitas.id_pessoa')
                     ->join('igrejas','igrejas.id','=','receitas.id_igreja')
                     ->join('receitas_categorias','receitas_categorias.id','=','receitas.id_categoria')
-                    ->select('receitas.*',DB::raw("date_format(receitas.data,'%d/%m/%Y') as data_formatada"),'igrejas.razao_social','pessoas.nome','receitas_categoria.descricao')
+                    ->select('receitas.*',DB::raw("date_format(receitas.data,'%d/%m/%Y') as data_formatada"),'igrejas.razao_social','pessoas.nome','receitas_categorias.descricao')
                     ->paginate(30);
                         
         return view('receitas.lista', compact('receitas'));
@@ -48,7 +49,7 @@ class ReceitasController extends Controller
             $lancamento['valor1'] = $valor1;
             $lancamento['id_user'] = Auth::user()->id;
 
-            if($lancamento['id_tipo'] == 1){
+            if($lancamento['id_categoria'] == 1){
                 
                 $valor2 = $geraisController->setFormatoAmericano($lancamento['valor2']);            
                 $lancamento['valor2'] = $valor2;
@@ -63,7 +64,26 @@ class ReceitasController extends Controller
                 return redirect()->back()->with(['status_aviso' => 'O valor do lançamento não pode ser zero']);
             }
 
+            DB::beginTransaction();
+
             $setLancamento = Receita::create($lancamento);
+
+            $extrato = [                
+                'id_lancamento' => $setLancamento->id,
+                'origem_lancamento' => 'r',                
+                'id_igreja' => $lancamento['id_igreja'],
+                'id_pessoa_forn' => $lancamento['id_pessoa'],
+                'id_conta' => $lancamento['id_conta'],
+                'id_categoria' => $lancamento['id_categoria'],
+                'id_responsavel' => $lancamento['id_user'],
+                'valor1' => $lancamento['valor1'],
+                'valor2' => $lancamento['id_categoria'] == '1' ? $lancamento['valor2'] : 0,                
+                'total' => $lancamento['total'],                
+            ];
+
+            Extrato::create($extrato);
+
+            DB::commit();
 
             Log::info("Novo lançamento de receita realizada. Id receita: " . $setLancamento->id);
 
@@ -71,6 +91,7 @@ class ReceitasController extends Controller
         }
         catch(Exception $e){
 
+            DB::rollBack();
             Log::error("Erro ao realizado lancamento. Erro: ".$e->getMessage());
             return redirect()->route('receitas.cadastro')->with(['status_error' => 'Erro: '. $e->getMessage()]);
         }

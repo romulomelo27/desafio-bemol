@@ -19,6 +19,7 @@ class Extrato extends Model
         'id_pessoa_forn',
         'id_conta',
         'id_categoria',
+        'id_responsavel',
         'valor1',
         'valor2',
         'juros',
