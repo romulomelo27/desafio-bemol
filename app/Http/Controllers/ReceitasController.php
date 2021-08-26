@@ -21,7 +21,13 @@ class ReceitasController extends Controller
 
     public function index()
     {
-        return view('receitas.lista');
+        $receitas = Receita::join('pessoas','pessoas.id','=','receitas.id_pessoa')
+                    ->join('igrejas','igrejas.id','=','receitas.id_igreja')
+                    ->join('receitas_tipos','receitas_tipos.id','=','receitas.id_tipo')
+                    ->select('receitas.*','igrejas.razao_social','pessoas.nome','receitas_tipos.descricao')
+                    ->paginate(30);
+                        
+        return view('receitas.lista', compact('receitas'));
     }
 
     public function novaReceitaView()
@@ -72,7 +78,7 @@ class ReceitasController extends Controller
     public function getMembros(int $id_igreja)
     {
         try{
-            $membro = Pessoa::where('id_igreja', $id_igreja)->where('tipo','m')->get();
+            $membro = Pessoa::where('id_igreja', $id_igreja)->where('tipo','m')->orderBy('nome')->get();
             return response()->json($membro);
         }
         catch(Exception $e){
