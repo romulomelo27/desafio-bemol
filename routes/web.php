@@ -48,3 +48,11 @@ Route::prefix('pessoas')->group(function () {
     Route::get('/atribuicoes/{id_pessoa}', [App\Http\Controllers\PessoasController::class, 'atribuicoesView'])->name('pessoas.atribuicoes');
     Route::post('/atribuicoes', [App\Http\Controllers\PessoasController::class, 'atribuicoesSalvar'])->name('pessoas.atribuicoes.salvar');
 });
+
+Route::prefix('receitas')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\ReceitasController::class, 'index'])->name('receitas');
+    Route::get('/novo-lancamento', [App\Http\Controllers\ReceitasController::class, 'novaReceitaView'])->name('receitas.cadastro');
+    Route::post('/novo-lancamento', [App\Http\Controllers\ReceitasController::class, 'novaReceitaSalvar'])->name('receitas.cadastro.salvar');
+    Route::get('/get-membros/{id_igreja}', [App\Http\Controllers\ReceitasController::class, 'getMembros'])->name('receitas.get.membros');
+});

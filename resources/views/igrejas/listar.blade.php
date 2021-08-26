@@ -11,7 +11,8 @@
 <div class="card">
     <div class="card-header bg-primary">Lista de Igrejas</div>
     <div class="card-body">
-        <table class="table table-striped table-sm table-hover">
+        <div class="table-responsive">
+          <table class="table table-striped table-sm table-hover">
             <thead>
               <tr>
                 <th>Nome Fantasia</th>
@@ -46,7 +47,8 @@
               </tr>
               @endforeach
             </tbody>
-        </table>
+          </table>
+        </div>          
     </div>
 </div>
 

@@ -270,7 +270,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Dízimos/Ofertas',
-                    'url'  => 'visitantes'                    
+                    'url'  => 'receitas'                    
                 ],
                 [
                     'text' => 'Despesas',
