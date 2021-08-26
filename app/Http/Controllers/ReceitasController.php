@@ -59,7 +59,7 @@ class ReceitasController extends Controller
 
             if($lancamento['total'] == 0){
                 $request->flash();
-                return redirect()->route('receitas.cadastro')->with(['status_aviso' => 'O valor do lançamento não pode ser zero']);
+                return redirect()->back()->with(['status_aviso' => 'O valor do lançamento não pode ser zero']);
             }
 
             $setLancamento = Receita::create($lancamento);

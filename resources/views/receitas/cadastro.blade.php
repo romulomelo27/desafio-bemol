@@ -34,7 +34,7 @@
           {{session('status_error')}}
         </div>
         @endif
-        <form action="" method="POST">
+        <form action="" method="POST" id="frmReceitas">
             @csrf
             <input type="hidden" value="{{url('')}}" id="url">
             <div class="row">

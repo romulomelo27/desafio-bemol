@@ -130,5 +130,12 @@ $(document).ready(function(){
         return variavel.toLocaleString('en', { minimumFractionDigits: 2 });
     }
 
+    $('#frmReceitas').submit(function(){
+        if($('#total').text() == '0,00'){
+            alert('O valor não pode ser zerado');
+            return false;
+        }
+    });
+
 });
 
