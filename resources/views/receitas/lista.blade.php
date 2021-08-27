@@ -39,9 +39,9 @@
                   Opções
                 </button>
                 <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Imprimir</a>
                   <a class="dropdown-item" href="#">Recibo</a>
-                  <a class="dropdown-item" href="#">Editar</a>
-                  <a class="dropdown-item" href="#">Link 3</a>
+                  <a class="dropdown-item" href="{{route('receitas.editar',['id_receita'=>$receita->id])}}">Estornar</a>
                 </div>
               </div> 
             </td>

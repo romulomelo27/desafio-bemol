@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 
+
     $('#idIgreja').change(function(){
     
         let id_igreja = $(this).val();   
@@ -78,8 +79,10 @@ $(document).ready(function(){
     });
 
     $('#idTipo').change(function(){
-    
-        let id_tipo = $(this).val();
+        layoutLancamento();        
+    });
+    function layoutLancamento(){
+        let id_tipo = $('#idTipo').val();
         
         if(id_tipo != 1){
             $('.dizimo-oferta').hide();
@@ -96,7 +99,7 @@ $(document).ready(function(){
             $('#valor3').removeAttr('name');
         }
         calcularValorLancamento();
-    });
+    }
 
     $('.valores').focusout(function(){
 
@@ -137,5 +140,6 @@ $(document).ready(function(){
         }
     });
 
+    layoutLancamento();
 });
 
