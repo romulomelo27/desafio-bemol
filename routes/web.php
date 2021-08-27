@@ -57,4 +57,5 @@ Route::prefix('receitas')->group(function () {
     Route::get('/get-membros/{id_igreja}', [App\Http\Controllers\ReceitasController::class, 'getMembros'])->name('receitas.get.membros');
     Route::get('/editar/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'editarReceitarView'])->name('receitas.editar');
     Route::post('/editar', [App\Http\Controllers\ReceitasController::class, 'editarReceitaSalvar'])->name('receitas.editar.salvar');
+    Route::get('/impressao/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'receitaImpressao'])->name('receitas.impressao');
 });

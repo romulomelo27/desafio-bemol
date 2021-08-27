@@ -32,14 +32,14 @@
             <td>R$ {{number_format($receita->total,2,',','.')}}</td>
             <td>{{$receita->data_formatada}}</td>
             <td>{{$receita->descricao}}</td>
-            <td>{{$receita->razao_social}}</td>
+            <td>{{$receita->nome_fantasia}}</td>
             <td>
               <div class="dropdown">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                   Opções
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Imprimir</a>
+                  <a class="dropdown-item" href="{{route('receitas.impressao',['id_receita'=>$receita->id])}}" target="_blank">Imprimir</a>
                   <a class="dropdown-item" href="#">Recibo</a>
                   <a class="dropdown-item" href="{{route('receitas.editar',['id_receita'=>$receita->id])}}">Estornar</a>
                 </div>
