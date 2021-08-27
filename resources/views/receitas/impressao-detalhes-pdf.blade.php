@@ -8,6 +8,7 @@
 @if($receita->id_categoria == '1')
 <p><b>Valor Dízimo: </b>R$ {{number_format($receita->valor1,2,',','.')}}</p>    
 <p><b>Valor Oferta: </b>R$ {{number_format($receita->valor2,2,',','.')}}</p>    
+<p><b>Total: </b>R$ {{number_format($receita->total,2,',','.')}}</p>    
 @else
 <p><b>Valor: </b>R$ {{number_format($receita->valor1,2,',','.')}}</p>    
 @endif

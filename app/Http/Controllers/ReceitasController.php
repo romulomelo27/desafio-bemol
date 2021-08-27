@@ -196,4 +196,33 @@ class ReceitasController extends Controller
         $pdf = PDF::loadView('receitas.impressao-detalhes-pdf', compact('receita'));//->setPaper('a4', 'landscape');
         return $pdf->stream('receita-detalhes-' . date('d_m_Y') . '.pdf');
     }
+
+    public function receitaRecibo(int $id_receita, GeraisController $geraisController)
+    {
+        $receita = Receita::join('pessoas','pessoas.id','=','receitas.id_pessoa')
+                    ->join('igrejas','igrejas.id','=','receitas.id_igreja')
+                    ->join('receitas_categorias','receitas_categorias.id','=','receitas.id_categoria')
+                    ->join('contas','contas.id','=','receitas.id_conta')
+                    ->join('users','users.id','=','receitas.id_user')
+                    ->select('receitas.*',DB::raw("date_format(receitas.data,'%d/%m/%Y') as data_formatada"),'igrejas.nome_fantasia','igrejas.cnpj','pessoas.nome','pessoas.cpf',
+                    'receitas_categorias.descricao','contas.descricao as conta', 'users.name as resp_lancamento')
+                    ->find($id_receita);
+        $total_por_extenso = $geraisController->valorPorExtenso($receita->total);           
+
+        $pdf = PDF::loadView('receitas.recibo-pdf', compact('receita','total_por_extenso'));//->setPaper('a4', 'landscape');
+        return $pdf->stream('recibo-receita' . date('d_m_Y') . '.pdf');
+    }
+
+    public function impressaoLista()
+    {
+        
+        $receitas = Receita::join('pessoas','pessoas.id','=','receitas.id_pessoa')
+                    ->join('igrejas','igrejas.id','=','receitas.id_igreja')
+                    ->join('receitas_categorias','receitas_categorias.id','=','receitas.id_categoria')
+                    ->select('receitas.*',DB::raw("date_format(receitas.data,'%d/%m/%Y') as data_formatada"),'igrejas.nome_fantasia','pessoas.nome','receitas_categorias.descricao')
+                    ->get();
+                        
+        $pdf = PDF::loadView('receitas.impressao-lista-pdf', compact('receitas'));//->setPaper('a4', 'landscape');
+        return $pdf->stream('receita-lista-' . date('d_m_Y') . '.pdf');
+    }
 }

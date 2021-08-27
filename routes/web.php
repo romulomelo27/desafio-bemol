@@ -58,4 +58,6 @@ Route::prefix('receitas')->group(function () {
     Route::get('/editar/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'editarReceitarView'])->name('receitas.editar');
     Route::post('/editar', [App\Http\Controllers\ReceitasController::class, 'editarReceitaSalvar'])->name('receitas.editar.salvar');
     Route::get('/impressao/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'receitaImpressao'])->name('receitas.impressao');
+    Route::get('/recibo/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'receitaRecibo'])->name('receitas.recibo');
+    Route::get('/impressao-lista', [App\Http\Controllers\ReceitasController::class, 'impressaoLista'])->name('receitas.impressao.lista');
 });

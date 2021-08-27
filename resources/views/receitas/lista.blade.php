@@ -4,7 +4,7 @@
 
 @section('content_header')
 <a href="{{route('receitas.cadastro')}}" class="btn btn-primary"> Novo Lançamento</a>
-<a href="#" target="_blank" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
+<a target="_blank" href="{{route('receitas.impressao.lista')}}" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
 @stop
 
 
@@ -40,7 +40,7 @@
                 </button>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="{{route('receitas.impressao',['id_receita'=>$receita->id])}}" target="_blank">Imprimir</a>
-                  <a class="dropdown-item" href="#">Recibo</a>
+                  <a class="dropdown-item" href="{{route('receitas.recibo',['id_receita'=>$receita->id])}}" target="_blank">Recibo</a>
                   <a class="dropdown-item" href="{{route('receitas.editar',['id_receita'=>$receita->id])}}">Estornar</a>
                 </div>
               </div> 
