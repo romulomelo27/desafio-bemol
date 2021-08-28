@@ -61,3 +61,23 @@ Route::prefix('receitas')->group(function () {
     Route::get('/recibo/{id_receita}', [App\Http\Controllers\ReceitasController::class, 'receitaRecibo'])->name('receitas.recibo');
     Route::get('/impressao-lista', [App\Http\Controllers\ReceitasController::class, 'impressaoLista'])->name('receitas.impressao.lista');
 });
+
+Route::prefix('fornecedores')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\FornecedoresController::class, 'index'])->name('fornecedores');
+    Route::get('/cadastro', [App\Http\Controllers\FornecedoresController::class, 'viewCadastro'])->name('fornecedores.cadastro');
+    Route::post('/cadastro', [App\Http\Controllers\FornecedoresController::class, 'cadastroAdd'])->name('fornecedores.cadastro.add');
+    Route::get('/editar/{id_fornecedor}', [App\Http\Controllers\FornecedoresController::class, 'viewEditar'])->name('fornecedores.editar');
+    Route::post('/editar', [App\Http\Controllers\FornecedoresController::class, 'salvarEdicao'])->name('fornecedores.editar.salvar');
+    Route::get('/get-cidades/{id_estado}', [App\Http\Controllers\FornecedoresController::class, 'getCidades'])->name('fornecedores.cidade');
+    Route::get('/impressao-detalhes/{id_fornecedor}', [App\Http\Controllers\FornecedoresController::class, 'getDetalhesImpressao'])->name('fornecedores.detalhes.impressao');
+    Route::get('/impressao-lista', [App\Http\Controllers\FornecedoresController::class, 'listaImpressao'])->name('fornecedores.lista.impressao');
+    
+});
+
+Route::prefix('despesas')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\DespesasController::class, 'index'])->name('despesas');
+    
+});
+

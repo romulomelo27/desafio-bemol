@@ -263,6 +263,11 @@ return [
             'text' => 'Pessoas',
             'url'  => 'pessoas',
             'icon' => 'fas fa-fw fa-users',
+        ],
+        [
+            'text' => 'Fornecedores',
+            'url'  => 'fornecedores',
+            'icon' => 'fas fa-handshake',
         ],        
         [
             'text' => 'Tesouraria',            
