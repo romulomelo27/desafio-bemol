@@ -3,14 +3,14 @@
 @section('title', 'Igreja Digital')
 
 @section('content_header')
-<a href="{{route('receitas.cadastro')}}" class="btn btn-primary"> Novo Lançamento</a>
-<a target="_blank" href="{{route('receitas.impressao.lista')}}" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
+<a href="{{route('despesas.cadastro')}}" class="btn btn-primary"> Novo Lançamento</a>
+<a target="_blank" href="#" class="btn btn-secondary"><i class="fas fa-fw fa-list"></i> Imprimir Lista</a>
 @stop
 
 
 @section('content')
 <div class="card">
-    <div class="card-header bg-primary"><b>Lista de Receitas</b></div>
+    <div class="card-header bg-primary"><b>Lista de Despesas</b></div>
     <div class="card-body">
       <table class="table table-striped table-hover table-sm">
         <thead>
@@ -18,6 +18,7 @@
             <th>Id</th>
             <th>Fornecedor</th>
             <th>Valor</th>
+            <th>Parcelas</th>
             <th>Data</th>
             <th>Categoria</th>
             <th>Igreja</th>
@@ -25,23 +26,23 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($receitas as $receita)
+          @foreach ($despesas as $despesa)
           <tr>
-            <td>{{$receita->id}}</td>
-            <td>{{$receita->nome}}</td>
-            <td>R$ {{number_format($receita->total,2,',','.')}}</td>
-            <td>{{$receita->data_formatada}}</td>
-            <td>{{$receita->descricao}}</td>
-            <td>{{$receita->nome_fantasia}}</td>
+            <td>{{$despesa->id}}</td>
+            <td>{{$despesa->fornecedor}}</td>
+            <td>R$ {{number_format($despesa->total,2,',','.')}}</td>
+            <td>{{$despesa->numero_parcelas}}</td>
+            <td>{{$despesa->data_formatada}}</td>
+            <td>{{$despesa->descricao}}</td>
+            <td>{{$despesa->nome_fantasia}}</td>
             <td>
               <div class="dropdown">
                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                   Opções
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{route('receitas.impressao',['id_receita'=>$receita->id])}}" target="_blank">Imprimir</a>
-                  <a class="dropdown-item" href="{{route('receitas.recibo',['id_receita'=>$receita->id])}}" target="_blank">Recibo</a>
-                  <a class="dropdown-item" href="{{route('receitas.editar',['id_receita'=>$receita->id])}}">Estornar</a>
+                  {{-- <a class="dropdown-item" href="{{route('despesa.impressao',['id_despesa'=>$despesa->id])}}" target="_blank">Imprimir</a>               --}}
+                  <a class="dropdown-item" href="{{route('despesas.editar',['id_despesa'=>$despesa->id])}}">Estornar</a>
                 </div>
               </div> 
             </td>

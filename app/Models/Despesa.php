@@ -16,7 +16,7 @@ class Despesa extends Model
         'id_user',
         'id_categoria',
         'numero_documento',
-        'valor',
+        'valor_documento',
         'juros',
         'desconto',
         'total',

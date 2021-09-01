@@ -78,6 +78,11 @@ Route::prefix('fornecedores')->group(function () {
 Route::prefix('despesas')->group(function () {
 
     Route::get('/', [App\Http\Controllers\DespesasController::class, 'index'])->name('despesas');
-    
+    Route::get('/novo-lancamento', [App\Http\Controllers\DespesasController::class, 'novaDespesaView'])->name('despesas.cadastro');
+    Route::get('/parcela-add', [App\Http\Controllers\DespesasController::class, 'parcelaAdd'])->name('despesas.parcela.add');
+    Route::get('/parcela-remover/{key_vetor}', [App\Http\Controllers\DespesasController::class, 'deletarParcela'])->name('despesas.parcela.remover');
+    Route::post('/novo-lancamento', [App\Http\Controllers\DespesasController::class, 'novaDespesaAdd'])->name('despesas.cadastro');
+    Route::get('/editar/{id_despesa}', [App\Http\Controllers\DespesasController::class, 'viewDespesaEditar'])->name('despesas.editar');
+    Route::post('/editar', [App\Http\Controllers\DespesasController::class, 'salvarEdicao'])->name('despesas.editar.salvar');
 });
 

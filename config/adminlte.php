@@ -496,6 +496,21 @@ return [
                 ],
             ],
         ],
+        'Toast' => [
+            'active' => true,
+            'files' => [                
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/toast.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'css/toast.css',
+                ],
+            ],
+        ],
     ],
 
     /*
