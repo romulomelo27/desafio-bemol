@@ -41,7 +41,7 @@
                   Opções
                 </button>
                 <div class="dropdown-menu">
-                  {{-- <a class="dropdown-item" href="{{route('despesa.impressao',['id_despesa'=>$despesa->id])}}" target="_blank">Imprimir</a>               --}}
+                  <a class="dropdown-item" href="{{route('despesas.impressao',['id_despesa'=>$despesa->id])}}" target="_blank">Imprimir</a>              
                   <a class="dropdown-item" href="{{route('despesas.editar',['id_despesa'=>$despesa->id])}}">Estornar</a>
                 </div>
               </div> 

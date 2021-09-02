@@ -280,12 +280,33 @@ return [
                 [
                     'text' => 'Despesas',
                     'url'  => 'despesas'
+                ]                                
+            ]
+        ],
+        [
+            'text' => 'Relatório',
+            'icon' => 'fas fa-list',
+            'submenu' =>[
+                [
+                    'text'=>'Receitas',
+                    'url' => 'relatorios/receitas'
                 ],
                 [
-                    'text' => 'Relatório',
-                    'url'  => 'relatórios'                    
+                    'text'=>'Despesas',
+                    'url' => 'relatorios/despesas'
                 ]                
             ]
+
+        ],
+        [
+            'text' => 'Gráficos',
+            'icon'  => 'fas fa-chart-pie',
+            'submenu' =>[
+                [
+                    'text'=>'Receita por Categoria',
+                    'url' => '#'
+                ]
+            ]                 
         ],
         [
             'text' => 'Eventos',

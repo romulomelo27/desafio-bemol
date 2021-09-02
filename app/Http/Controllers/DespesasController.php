@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 class DespesasController extends Controller
 {
@@ -349,6 +350,23 @@ class DespesasController extends Controller
             return redirect()->route('despesas.editar',['id_despesa'=>$despesa['id']])->with(['status_error' => 'Erro ao editar despesa. Erro:'.$e->getMessage()]);
         }
 
+    }
+
+    public function despesaImpressao(int $id_despesa)
+    {
+        $despesa = Despesa::join('fornecedores','fornecedores.id','=','despesas.id_fornecedor')
+                    ->join('igrejas','igrejas.id','=','despesas.id_igreja')
+                    ->join('despesas_categorias','despesas_categorias.id','=','despesas.id_categoria')
+                    ->join('users','users.id','=','despesas.id_user')
+                    ->select('despesas.*',DB::raw("date_format(despesas.data,'%d/%m/%Y') as data_formatada"),'igrejas.nome_fantasia','fornecedores.nome_fantasia as fornecedor',
+                    'despesas_categorias.descricao', 'users.name as resp_lancamento')
+                    ->find($id_despesa);
+        
+        $despesa_parcelas = DespesaParcela::leftJoin('contas','contas.id','=','despesas_parcelas.id_conta')
+        ->select('despesas_parcelas.*','contas.descricao')->where('id_despesa', $id_despesa)->get();
+
+        $pdf = PDF::loadView('despesas.impressao-detalhes-pdf', compact('despesa','despesa_parcelas'));//->setPaper('a4', 'landscape');
+        return $pdf->stream('despesa-detalhes-' . date('d_m_Y') . '.pdf');
     }
 
 }

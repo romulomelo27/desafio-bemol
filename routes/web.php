@@ -83,6 +83,12 @@ Route::prefix('despesas')->group(function () {
     Route::get('/parcela-remover/{key_vetor}', [App\Http\Controllers\DespesasController::class, 'deletarParcela'])->name('despesas.parcela.remover');
     Route::post('/novo-lancamento', [App\Http\Controllers\DespesasController::class, 'novaDespesaAdd'])->name('despesas.cadastro');
     Route::get('/editar/{id_despesa}', [App\Http\Controllers\DespesasController::class, 'viewDespesaEditar'])->name('despesas.editar');
+    Route::get('/impressao/{id_despesa}', [App\Http\Controllers\DespesasController::class, 'despesaImpressao'])->name('despesas.impressao');
     Route::post('/editar', [App\Http\Controllers\DespesasController::class, 'salvarEdicao'])->name('despesas.editar.salvar');
 });
 
+Route::prefix('relatorio')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\DespesasController::class, 'index'])->name('despesas');
+
+});
