@@ -14,7 +14,7 @@ class Extrato extends Model
         'id', 
         'id_lancamento',
         'origem_lancamento',
-        'id_parcela',
+        'numero_parcela',
         'id_igreja',
         'id_pessoa_forn',
         'id_conta',

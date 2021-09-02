@@ -6,6 +6,7 @@ use App\Models\Conta;
 use App\Models\Despesa;
 use App\Models\DespesaCategoria;
 use App\Models\DespesaParcela;
+use App\Models\Extrato;
 use App\Models\Fornecedor;
 use App\Models\Igreja;
 use Exception;
@@ -185,6 +186,24 @@ class DespesasController extends Controller
                 DespesaParcela::create($parcela);
 
                 $indice++;
+
+                if(!is_null($parcela['data_pagamento'])){
+                    $extrato = [                
+                        'id_lancamento' => $id_despesa,
+                        'origem_lancamento' => 'd',
+                        'numero_parcela' => $parcela['numero'],             
+                        'id_igreja' => $despesa['id_igreja'],
+                        'id_pessoa_forn' => $despesa['id_fornecedor'],
+                        'id_conta' => $parcela['id_conta'],
+                        'id_categoria' => $despesa['id_categoria'],
+                        'id_responsavel' => $despesa['id_user'],
+                        'valor1' => $parcela['total_parcela'],
+                        'valor2' => 0,                
+                        'total' => $parcela['total_parcela']               
+                    ];
+                    
+                    Extrato::create($extrato);
+                }
             }
 
             Log::info("Nova despesa cadastrado com sucesso.");
@@ -228,7 +247,7 @@ class DespesasController extends Controller
                 'valor_parcela'      => $parcela->valor_parcela,
                 'data_vencimento' => $parcela->data_vencimento,
                 'data_pagamento'  => $parcela->data_pagamento,
-                'id_conta'  => $parcela->id_conta_controle
+                'id_conta'  => $parcela->id_conta
             ];
 
             if($parc['id_conta'] != null){
@@ -282,6 +301,7 @@ class DespesasController extends Controller
 
             //removo as parcelas
             DespesaParcela::where('id_despesa', $despesa['id'])->where('id_despesa', $despesa['id'])->delete();
+            Extrato::where('id_lancamento',$despesa['id'])->where('origem_lancamento','d')->update(['estornado'=>1]);
 
             foreach ($despesa_parcelas as $parcela) {
 
@@ -290,10 +310,27 @@ class DespesasController extends Controller
                 $parcela['numero'] = $indice;
                 $parcela['total_parcela'] = $parcela['valor_parcela'];
 
-                //inserindo custo parcelas
                 DespesaParcela::create($parcela);
 
                 $indice++;
+
+                if(!is_null($parcela['data_pagamento'])){
+                    $extrato = [                
+                        'id_lancamento' => $despesa['id'],
+                        'origem_lancamento' => 'd',         
+                        'numero_parcela' => $parcela['numero'],       
+                        'id_igreja' => $despesa['id_igreja'],
+                        'id_pessoa_forn' => $despesa['id_fornecedor'],
+                        'id_conta' => $parcela['id_conta'],
+                        'id_categoria' => $despesa['id_categoria'],
+                        'id_responsavel' => $despesa['id_user'],
+                        'valor1' => $parcela['total_parcela'],
+                        'valor2' => 0,                
+                        'total' => $parcela['total_parcela']               
+                    ];
+                    
+                    Extrato::create($extrato);
+                }
             }
 
             Log::info("Despesa editada com sucesso {$despesa['id']}");
