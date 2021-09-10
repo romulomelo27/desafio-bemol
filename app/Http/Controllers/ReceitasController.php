@@ -71,7 +71,8 @@ class ReceitasController extends Controller
 
             $extrato = [                
                 'id_lancamento' => $setLancamento->id,
-                'origem_lancamento' => 'r',                
+                'origem_lancamento' => 'r',
+                'numero_parcela' => 1,                
                 'id_igreja' => $lancamento['id_igreja'],
                 'id_pessoa_forn' => $lancamento['id_pessoa'],
                 'id_conta' => $lancamento['id_conta'],
