@@ -369,4 +369,8 @@ class DespesasController extends Controller
         return $pdf->stream('despesa-detalhes-' . date('d_m_Y') . '.pdf');
     }
 
+    public function listaContasPagar()
+    {
+        
+    }
 }

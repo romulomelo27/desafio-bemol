@@ -87,8 +87,15 @@ Route::prefix('despesas')->group(function () {
     Route::post('/editar', [App\Http\Controllers\DespesasController::class, 'salvarEdicao'])->name('despesas.editar.salvar');
 });
 
-Route::prefix('relatorio')->group(function () {
+Route::prefix('contas-pagar')->group(function () {
 
-    Route::get('/', [App\Http\Controllers\DespesasController::class, 'index'])->name('despesas');
+    Route::get('/', [App\Http\Controllers\ContasPagarController::class, 'index'])->name('contas.pagar');
+
+
+});
+
+Route::prefix('relatorios')->group(function () {
+
+    Route::get('/receitas', [App\Http\Controllers\RelatoriosController::class, 'filtroDespesa'])->name('relatorios.receita');
 
 });

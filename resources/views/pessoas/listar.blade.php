@@ -33,7 +33,7 @@
                 <td> 
                   <div class="btn-group">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                       Opções
                       </button>
                       <div class="dropdown-menu">                        

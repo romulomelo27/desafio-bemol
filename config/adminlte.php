@@ -280,6 +280,10 @@ return [
                 [
                     'text' => 'Despesas',
                     'url'  => 'despesas'
+                ],
+                [
+                    'text' => 'Contas a Pagar',
+                    'url'  => 'contas-pagar'
                 ]                                
             ]
         ],
@@ -303,7 +307,8 @@ return [
             'icon'  => 'fas fa-chart-pie',
             'submenu' =>[
                 [
-                    'text'=>'Receita por Categoria',
+                    'text'=>'Receita por Categoria
+                    ',
                     'url' => '#'
                 ]
             ]                 
