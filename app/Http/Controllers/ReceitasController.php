@@ -69,6 +69,11 @@ class ReceitasController extends Controller
 
             $setLancamento = Receita::create($lancamento);
 
+            $saldo_atual = 0;
+            $conta = Conta::find($lancamento['id_conta']);
+            $saldo_atual = $lancamento['total'] + $conta->saldo;
+            Conta::find($lancamento['id_conta'])->update(['saldo' => $saldo_atual]);
+
             $extrato = [                
                 'id_lancamento' => $setLancamento->id,
                 'origem_lancamento' => 'r',
@@ -80,7 +85,9 @@ class ReceitasController extends Controller
                 'id_responsavel' => $lancamento['id_user'],
                 'valor1' => $lancamento['valor1'],
                 'valor2' => $lancamento['id_categoria'] == '1' ? $lancamento['valor2'] : 0,                
-                'total' => $lancamento['total'],                
+                'saldo_anterior' => $conta->saldo,
+                'total' => $lancamento['total'],      
+                'saldo_atual' => $saldo_atual          
             ];
 
             Extrato::create($extrato);

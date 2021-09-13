@@ -129,6 +129,9 @@ $(document).ready(function(){
                 if(itens.status)
                 {
                     listarParcelas(itens);
+                    $('#dataPagamento').val('');
+                    $('#idConta').val('');
+                    $('#idConta').attr('disabled',true);
                 }
                 else{
                     $.toast({

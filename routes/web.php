@@ -90,7 +90,8 @@ Route::prefix('despesas')->group(function () {
 Route::prefix('contas-pagar')->group(function () {
 
     Route::get('/', [App\Http\Controllers\ContasPagarController::class, 'index'])->name('contas.pagar');
-
+    Route::post('/baixar', [App\Http\Controllers\ContasPagarController::class, 'baixarDespesa'])->name('contas.pagar.baixar');
+    
 
 });
 

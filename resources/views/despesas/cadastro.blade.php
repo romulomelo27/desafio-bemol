@@ -123,12 +123,12 @@
                                 <input type="date" id="dataPagamento" class="form-control enter">
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label for="Tipo">Conta</label>
                             <select name="id_conta" id="idConta" class="form-control enter" disabled>
                                 <option value="">Selecione</option>
                                 @foreach ($contas as $conta)
-                                <option value="{{$conta->id}}">{{$conta->descricao}}</option>
+                                <option value="{{$conta->id}}">{{$conta->descricao}} - ({{number_format($conta->saldo,2,',','.')}})</option>
                                 @endforeach
                             </select>
                         </div>

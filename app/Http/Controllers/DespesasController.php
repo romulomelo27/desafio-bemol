@@ -48,6 +48,26 @@ class DespesasController extends Controller
     {
         // session()->forget('despesa_parcelas');
         $parcela = $request->all();
+
+        if($parcela['id_conta'] != null){
+                
+            $conta = Conta::find($parcela['id_conta']);
+            $parcela['conta'] = $conta->descricao;
+
+            if($conta->saldo < $parcela['valor_parcela']){
+                return response()->json(
+                    [
+                        'status' => false,
+                        'msg' => 'A conta selecionada não possui saldo suficiente',
+                        'data' => []
+                    ]
+                );
+            }
+        }
+        else{
+            
+            $parcela['conta'] = '';
+        }
         
         //verifico se ja existe sessao
         if (session()->has("despesa_parcelas")) {
@@ -65,23 +85,12 @@ class DespesasController extends Controller
                         'data' => []
                     ]
                 );
-            }
-
-            if($parcela['id_conta'] != null){
-                
-                $conta = Conta::find($parcela['id_conta']);
-                $parcela['conta'] = $conta->descricao;
-            }
-            else{
-                
-                $parcela['conta'] = '';
-            }
+            }            
             
             $despesa_parcelas[] = $parcela;
         } 
         else {
-
-            $parcela['conta'] = '';
+            
             $despesa_parcelas[] = $parcela;
         }
 
@@ -189,6 +198,12 @@ class DespesasController extends Controller
                 $indice++;
 
                 if(!is_null($parcela['data_pagamento'])){
+
+                    $saldo_atual = 0;
+                    $conta = Conta::find($parcela['id_conta']);
+                    $saldo_atual = $conta->saldo - $parcela['total_parcela'];
+                    Conta::find($parcela['id_conta'])->update(['saldo' => $saldo_atual]);
+
                     $extrato = [                
                         'id_lancamento' => $id_despesa,
                         'origem_lancamento' => 'd',
@@ -200,7 +215,9 @@ class DespesasController extends Controller
                         'id_responsavel' => $despesa['id_user'],
                         'valor1' => $parcela['total_parcela'],
                         'valor2' => 0,                
-                        'total' => $parcela['total_parcela']               
+                        'saldo_anterior' => $conta->saldo,
+                        'total' => $parcela['total_parcela'],
+                        'saldo_atual' => $saldo_atual
                     ];
                     
                     Extrato::create($extrato);

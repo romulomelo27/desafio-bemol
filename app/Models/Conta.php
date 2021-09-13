@@ -12,7 +12,8 @@ class Conta extends Model
     protected $fillable = [
         'id',
         'descricao',
-        'ativo'
+        'ativo',
+        'saldo'
     ];
 
 

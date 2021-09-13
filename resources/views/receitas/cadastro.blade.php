@@ -95,7 +95,7 @@
                     <select name="id_conta" id="" class="form-control enter" required>
                         <option value="">Selecione</option>
                         @foreach ($contas as $conta)
-                        <option value="{{$conta->id}}">{{$conta->descricao}}</option>
+                        <option value="{{$conta->id}}">{{$conta->descricao}} - ({{number_format($conta->saldo,2,',','.')}})</option>
                         @endforeach
                     </select>
                 </div>

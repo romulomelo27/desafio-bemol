@@ -24,7 +24,9 @@ class Extrato extends Model
         'valor2',
         'juros',
         'desconto',
+        'saldo_anterior',
         'total',
+        'saldo_atual',
         'estornado'
     ];
 }
