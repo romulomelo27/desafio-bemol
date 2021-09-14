@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Igreja Digital',
+    'title' => 'Bemol Digital',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -254,93 +254,93 @@ return [
         //     'label_color' => 'success',
         // ],
         // ['header' => 'account_settings'],
+        // [
+        //     'text' => 'Igrejas',
+        //     'url'  => 'igrejas',
+        //     'icon' => 'fas fa-fw fa-church',
+        // ],
         [
-            'text' => 'Igrejas',
-            'url'  => 'igrejas',
-            'icon' => 'fas fa-fw fa-church',
-        ],
-        [
-            'text' => 'Pessoas',
-            'url'  => 'pessoas',
+            'text' => 'Meu Perfil',
+            'url'  => 'perfil',
             'icon' => 'fas fa-fw fa-users',
         ],
-        [
-            'text' => 'Fornecedores',
-            'url'  => 'fornecedores',
-            'icon' => 'fas fa-handshake',
-        ],        
-        [
-            'text' => 'Tesouraria',            
-            'icon' => 'fas fa-fw fa-hand-holding-usd',
-            'submenu' => [
-                [
-                    'text' => 'Dízimos/Ofertas',
-                    'url'  => 'receitas'                    
-                ],
-                [
-                    'text' => 'Despesas',
-                    'url'  => 'despesas'
-                ],
-                [
-                    'text' => 'Contas a Pagar',
-                    'url'  => 'contas-pagar'
-                ]                                
-            ]
-        ],
-        [
-            'text' => 'Relatório',
-            'icon' => 'fas fa-list',
-            'submenu' =>[
-                [
-                    'text'=>'Receitas',
-                    'url' => 'relatorios/receitas'
-                ],
-                [
-                    'text'=>'Despesas',
-                    'url' => 'relatorios/despesas'
-                ]                
-            ]
+        // [
+        //     'text' => 'Fornecedores',
+        //     'url'  => 'fornecedores',
+        //     'icon' => 'fas fa-handshake',
+        // ],        
+        // [
+        //     'text' => 'Tesouraria',            
+        //     'icon' => 'fas fa-fw fa-hand-holding-usd',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Dízimos/Ofertas',
+        //             'url'  => 'receitas'                    
+        //         ],
+        //         [
+        //             'text' => 'Despesas',
+        //             'url'  => 'despesas'
+        //         ],
+        //         [
+        //             'text' => 'Contas a Pagar',
+        //             'url'  => 'contas-pagar'
+        //         ]                                
+        //     ]
+        // ],
+        // [
+        //     'text' => 'Relatório',
+        //     'icon' => 'fas fa-list',
+        //     'submenu' =>[
+        //         [
+        //             'text'=>'Receitas',
+        //             'url' => 'relatorios/receitas'
+        //         ],
+        //         [
+        //             'text'=>'Despesas',
+        //             'url' => 'relatorios/despesas'
+        //         ]                
+        //     ]
 
-        ],
-        [
-            'text' => 'Gráficos',
-            'icon'  => 'fas fa-chart-pie',
-            'submenu' =>[
-                [
-                    'text'=>'Receita por Categoria
-                    ',
-                    'url' => '#'
-                ]
-            ]                 
-        ],
-        [
-            'text' => 'Eventos',
-            'url'  => 'eventos',
-            'icon' => 'fas fa-fw fa-calendar-check'
-        ],
-        [
-            'text' => 'Inventário',
-            'url'  => 'inventario',
-            'icon' => 'fas fa-fw fa-clipboard-list'
-        ],
-        [
-            'text' => 'Configurações',            
-            'icon' => 'fas fa-fw fa-cog',
-            'submenu' => [
-                [
-                    'text' => 'Usuários',
-                    'url'  => 'usuarios'                    
-                ],
-                [
-                    'text' => 'Perfis',
-                    'url'  => 'perfils'                    
-                ],
-                [
-                    'text' => 'Logs',
-                    'url'  => 'log'                    
-                ]
-            ]
-        ]
+        // ],
+        // [
+        //     'text' => 'Gráficos',
+        //     'icon'  => 'fas fa-chart-pie',
+        //     'submenu' =>[
+        //         [
+        //             'text'=>'Receita por Categoria
+        //             ',
+        //             'url' => '#'
+        //         ]
+        //     ]                 
+        // ],
+        // [
+        //     'text' => 'Eventos',
+        //     'url'  => 'eventos',
+        //     'icon' => 'fas fa-fw fa-calendar-check'
+        // ],
+        // [
+        //     'text' => 'Inventário',
+        //     'url'  => 'inventario',
+        //     'icon' => 'fas fa-fw fa-clipboard-list'
+        // ],
+        // [
+        //     'text' => 'Configurações',            
+        //     'icon' => 'fas fa-fw fa-cog',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Usuários',
+        //             'url'  => 'usuarios'                    
+        //         ],
+        //         [
+        //             'text' => 'Perfis',
+        //             'url'  => 'perfils'                    
+        //         ],
+        //         [
+        //             'text' => 'Logs',
+        //             'url'  => 'log'                    
+        //         ]
+        //     ]
+        // ]
         // [
         //     'text'    => 'Visitantes',
         //     'icon'    => 'fas fa-fw fa-share',

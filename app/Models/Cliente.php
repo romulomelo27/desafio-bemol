@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fornecedor extends Model
+class Cliente extends Model
 {
     use HasFactory;
 
-    protected $table = 'fornecedores';
-
     protected $fillable = [
-
-        'id', 
-        'razao_social',
-        'nome_fantasia',
-        'tipo',
-        'documento',
+        'id',
+        'id_user',
+        'nome',
+        'id_igreja',
+        'cpf',
+        'rg',
         'cep',
         'rua',
         'numero',
@@ -28,6 +26,8 @@ class Fornecedor extends Model
         'celular',
         'email',
         'logo',
-        'ativo',        
+        'ativo',
+        'tipo',
+        'foto'        
     ];
 }
