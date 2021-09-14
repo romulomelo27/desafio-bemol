@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conta;
 use App\Models\DespesaParcela;
 use App\Models\Extrato;
+use COM;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +28,9 @@ class ContasPagarController extends Controller
         DB::raw("date_format(data_pagamento,'%d/%m/%Y') pagamento_formatado"))
         ->paginate(20);
 
-        return view('contas-pagar.lista', compact('parcelas'));
+        $contas = Conta::where('ativo',1)->get();
+
+        return view('contas-pagar.lista', compact('parcelas', 'contas'));
     }
 
     public function baixarDespesa(Request $request)
@@ -37,24 +41,48 @@ class ContasPagarController extends Controller
             $baixar = $request->all();
 
             $parcela = DespesaParcela::join('despesas','despesas.id','=','despesas_parcelas.id_despesa')
-            ->select('despesas_parcelas.*','despesas.id_fornecedor')->where('parcelas_despesas.id_despesa',$baixar['id_despesa'])->where('numero',$baixar['numero_parcela'])->first();
+            ->select('despesas_parcelas.*','despesas.id_fornecedor', 'despesas.id', 'despesas.id_igreja',
+            'despesas.id_categoria')
+            ->where('despesas_parcelas.id_despesa',$baixar['id_despesa'])
+            ->where('numero',$baixar['numero_parcela'])->first();
 
-            //1° verifico se a parcela ja foi baixada
+            //1º verifico se a conta tem saldo
+            $conta = Conta::find($baixar['id_conta']);
+            if($conta->saldo < $parcela->total_parcela){
+
+                return response()->json(
+                    [
+                        'status' => false,
+                        'msg' => 'Saldo da conta insuficiente',
+                        'data' => []
+                    ]
+                );
+            }     
+
+            //2° verifico se a parcela ja foi baixada
             if(!is_null($parcela->data_pagamento)){
                 return response()->json(['status'=>false, 'msg'=>'Esse parcela já possui registro de pagamento, atualize sua tela. (F5)']);    
             }
             
-            //2° verificar saldo da conta
+            //3° verificar saldo da conta
 
             DB::beginTransaction();
 
+            //4º baixa a parcela
             DespesaParcela::where('id_despesa',$baixar['id_despesa'])->where('numero',$baixar['numero_parcela'])->update(
                 [
                     'data_pagamento'=>$baixar['data_pagamento'],
-                    'id_user_baixa' => Auth::user()->id
+                    'id_user_baixa' => Auth::user()->id,
+                    'id_conta' =>$baixar['id_conta']
                 ]
             );
 
+            //5º atualiza saldo conta
+            $saldo_atual = 0;
+            $saldo_atual = ($conta->saldo - $parcela->total_parcela);
+            Conta::find($baixar['id_conta'])->update(['saldo' => $saldo_atual]);
+
+            //6º lanca o extrato
             $extrato = [                
                 'id_lancamento' => $parcela->id, //id da despesa
                 'origem_lancamento' => 'd',
@@ -66,7 +94,9 @@ class ContasPagarController extends Controller
                 'id_responsavel' => Auth::user()->id,
                 'valor1' => $parcela->total_parcela,
                 'valor2' => 0,                
-                'total' => $parcela->total_parcela
+                'saldo_anterior'=> $conta->saldo,
+                'total' => $parcela->total_parcela,
+                'saldo_atual' => $saldo_atual
             ];
 
             Extrato::create($extrato);

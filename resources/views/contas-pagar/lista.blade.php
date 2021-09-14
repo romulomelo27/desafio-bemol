@@ -92,6 +92,14 @@
         <label for="">Parcela: </label> <span id="numero"></span> <br>
         <label for="">Valor: </label> <span id="valor"></span> <br>
         <label for="">Vencimento: </label> <span id="vencimento"></span> <br>
+        <label for="">Conta: </label>
+        <select id="idConta">
+          <option value="">Selecione</option>
+          @foreach ($contas as $conta)
+              <option value="{{$conta->id}}">{{$conta->descricao}} - ({{number_format($conta->saldo,2,',','.')}}) </option>
+          @endforeach
+        </select>
+        <br>
         <label for="">Data Pagamento: <input type="date" value="{{date('Y-m-d')}}" id="dataPagamento"></label>
       </div>
 

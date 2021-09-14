@@ -27,14 +27,14 @@ $(document).ready(function(){
         let data_pagamento = $('#dataPagamento').val()        
         let url = $('#url').val();
         let token = $("[name=_token]").val(); 
+        let id_conta = $('#idConta').val();
         
         
-        
-        if(data_pagamento == ''){
+        if((data_pagamento == '') || (id_conta == '')){
             
             $.toast({
                 heading:'Infomação',
-                text: 'Informe a data de pagamento',
+                text: 'Conta e Data de pagamento obrigatórios',
                 showHideTransition: 'slide',
                 position:'top-right',
                 hideAfter:4000,
@@ -52,7 +52,8 @@ $(document).ready(function(){
                  _token: token,
                  id_despesa: id_despesa,
                  numero_parcela: numero_parcela,
-                 data_pagamento: data_pagamento
+                 data_pagamento: data_pagamento,
+                 id_conta: id_conta
             },
             beforeSend : function(){
                  $("#resultado").html("ENVIANDO...");
