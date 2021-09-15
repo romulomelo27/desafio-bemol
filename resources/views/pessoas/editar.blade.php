@@ -32,11 +32,17 @@
             @csrf
             <input type="hidden" value="{{url('')}}" id="url">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <div class="form-group">
                       <label for="nome">Nome<span style="color: red">*</span></label>
                       <input type="text" class="form-control enter" autofocus name="nome" id="nome" maxlength="150" value="{{$user->name}}">
                     </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="">Nascimento</label>
+                    <input type="date" disabled class="form-control enter" value="{{$user->nascimento}}">
+                  </div>
                 </div>        
             </div>   
             <div class="row">
@@ -55,7 +61,7 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="cep">CEP <i class='fa fa-spinner fa-spin icon-load-cep' style='font-size:24px; display:none'></i></label>
-                    <input type="text" class="form-control enter" name="cep" id="cep" value="{{$user->cep}}">
+                    <input type="text" class="form-control enter" disabled id="cep" value="{{$user->cep}}">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -81,7 +87,7 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label for="estado">Estado</label>
-                  <input type="text" id="estado" name="estado" value="{{$user->estado}}" class="form-control">
+                  <input type="text" id="estado" value="{{$user->estado}}" disabled class="form-control">
                 </div>
               </div>
               <div class="col-md-3">

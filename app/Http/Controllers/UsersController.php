@@ -31,7 +31,7 @@ class UsersController extends Controller
         
         try{
             $editar = $resquest->except('_token');
-            $editar['cpf'] = $this->removeMascara($editar['cpf']);
+            // $editar['cpf'] = $this->removeMascara($editar['cpf']);
             $editar['rg'] = $this->removeMascara($editar['rg']);
             $editar['cep'] = $this->removeMascara($editar['cep']);            
             User::find(Auth::user()->id)->update($editar);
@@ -40,7 +40,7 @@ class UsersController extends Controller
         }
         catch(Exception $e){
 
-            Log::erro("Erro ao edita pessoa. Erro: ". $e->getMessage());
+            Log::error("Erro ao edita pessoa. Erro: ". $e->getMessage());
             return redirect()->route('perfil.editar')->with(['status_error'=>'Erro ao editar pessoa'.$e->getMessage()]);
         }
 
