@@ -54,11 +54,11 @@ class UsersController extends Controller
         return $var;
     }
 
-    public function viewFotoPefil(int $id_pessoa)
+    public function viewFotoPefil()
     {
-        $pessoa = Cliente::find($id_pessoa);
+        $user = User::find(Auth::user()->id);
 
-        return view('pessoas.foto-perfil', compact('pessoa'));
+        return view('pessoas.foto-perfil', compact('user'));
     }
 
     public function fotoPefilSalvar(Request $request)
@@ -73,14 +73,14 @@ class UsersController extends Controller
 
                 $foto = str_replace('public/','',$foto);
 
-                Cliente::find($pessoa['id'])->update(['foto'=>$foto]);
+                User::find(Auth::user()->id)->update(['foto'=>$foto]);
 
-                return redirect()->route('pessoas.foto.perfil', ['id_pessoa' => $pessoa['id']])->with(['status_sucesso'=>'Foto salva com sucesso']);
+                return redirect()->route('perfil.foto.perfil')->with(['status_sucesso'=>'Foto salva com sucesso']);
             }                 
         }
         catch(Exception $e){
 
-            return redirect()->route('pessoas.foto.perfil', ['id_pessoa' => $pessoa['id']])->with(['status_error'=>'Erro ao salvar foto. Erro: '. $e->getMessage()]);
+            return redirect()->route('perfil.foto.perfil')->with(['status_error'=>'Erro ao salvar foto. Erro: '. $e->getMessage()]);
         }  
         
     }

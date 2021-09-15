@@ -262,7 +262,12 @@ return [
         [
             'text' => 'Meu Perfil',
             'url'  => 'perfil/editar',
-            'icon' => 'fas fa-fw fa-users',
+            'icon' => 'far fa-user',
+        ],
+        [
+            'text' => 'Foto',
+            'url'  => 'perfil/foto-perfil',
+            'icon' => 'fas fa-address-card',
         ],
         // [
         //     'text' => 'Fornecedores',

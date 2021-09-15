@@ -5,7 +5,7 @@
 @section('content_header')
 <nav>
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{route('pessoas')}}">Pessoas</a></li>
+    <li class="breadcrumb-item"><a href="{{route('perfil.editar')}}">Perfil</a></li>
     <li class="breadcrumb-item active" aria-current="page">Foto Perfil</li>
   </ol>
 </nav>
@@ -28,17 +28,15 @@
           {{session('status_error')}}
         </div>
         @endif
-        <h5><b>{{$pessoa->tipo == 'm'? 'Membro: ' : 'Visitante: '}}</b> {{$pessoa->nome}}</h5>
-        <hr>
         <div class="row">
             <div class="col-md-4">
-              <img src="{{$pessoa->foto != '' ? asset("storage/{$pessoa->foto}") : asset('images/perfil.jpg')}}" class="img-thumbnail" alt="Cinque Terre"> 
+              <img src="{{$user->foto != '' ? asset("storage/{$user->foto}") : asset('images/perfil.jpg')}}" class="img-thumbnail" alt="Cinque Terre"> 
             </div>
             <div class="col-md-8">
-              <form action="{{route('pessoas.foto.salvar')}}" method="POST" enctype="multipart/form-data">
+              <form action="{{route('perfil.foto.salvar')}}" method="POST" enctype="multipart/form-data">
                   <div class="form-group">                  
                       @csrf
-                      <input type="hidden" name="id" value="{{$pessoa->id}}">
+                      
                       <label for="foto">Selecione a foto</label>                      
                       <input type="file" name="foto" class="form-control">
                       <input type="submit" value="Salvar" class="btn btn-primary" style="margin-top:10px">
