@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#cep").mask("99.999-999", { reverse: true });
+    $("#cpf").mask("999.999.999.99", { reverse: true });
 
     $("#cep").change(function () {
         if ($(this).val().length == 10) {
@@ -30,10 +31,14 @@ $(document).ready(function(){
 
                             $('#testeCep').val('1');
                             $('#alertInfo').hide();
-                            if(($('#testeCep').val() == '1') && ($('#testeNascimento').val() == '1')){
-                                alert('entrou 1')
+                            $('#logradouro').val(endereco.logradouro);                                 
+                            $('#bairro').val(endereco.bairro);
+                            $('#localidade').val(endereco.localidade);
+                            $('#uf').val(endereco.uf);
+
+                            if(($('#testeCep').val() == '1') && ($('#testeNascimento').val() == '1')){                                
                                 $('#btnRegister').removeAttr('disabled');
-                            }                                                        
+                            }                                                   
                         }
                         
 
@@ -65,8 +70,7 @@ $(document).ready(function(){
             $('#testeNascimento').val('1');
             $('#alertInfo').hide();
 
-            if(($('#testeCep').val() == '1') && ($('#testeNascimento').val() == '1')){
-                alert('entrou 2')
+            if(($('#testeCep').val() == '1') && ($('#testeNascimento').val() == '1')){                
                 $('#btnRegister').removeAttr('disabled');
             }                                                     
         }

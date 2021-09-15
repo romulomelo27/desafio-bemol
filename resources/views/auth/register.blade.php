@@ -19,8 +19,7 @@
     <form action="{{ $register_url }}" method="post">
         {{ csrf_field() }}        
 
-        {{-- Name field --}}
-        <label for="">Nome</label>
+        {{-- Name field --}}        
         <div class="input-group mb-3">            
             <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                    value="{{ old('name') }}" autofocus>
@@ -35,23 +34,33 @@
                 </div>
             @endif
         </div>
-
         {{-- Email field --}}
-        <label for="">E-mail</label>
+        <label for="">CPF</label>
         <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                   value="{{ old('email') }}">
+            <input type="text" name="cpf" id="cpf" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+                value="{{ old('cpf') }}">
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                    {{-- <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span> --}}
                 </div>
             </div>
+            @if($errors->has('cpf'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('cpf') }}</strong>
+                </div>
+            @endif
+        </div>
+        {{-- Email field --}}                
+        <div class="form-group">
+            <label for="">E-mail</label>
+            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                value="{{ old('email') }}">                    
             @if($errors->has('email'))
                 <div class="invalid-feedback">
                     <strong>{{ $errors->first('email') }}</strong>
                 </div>
             @endif
-        </div>
+        </div>       
 
         <div class="row">
             <div class="col-md-6">
@@ -86,43 +95,49 @@
                 </div>
             </div>
         </div>
-            
-
-        {{-- Password field --}}
-        <label for="">Senha</label>            
-        <div class="input-group mb-3">
-            <input type="password" name="password"
-                   class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+        <div class="row">
+            <div class="col-md-6">
+                {{-- Password field --}}
+                <label for="">Senha</label>            
+                <div class="input-group mb-3">
+                    <input type="password" name="password"
+                        class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                        </div>
+                    </div>
+                    @if($errors->has('password'))
+                        <div class="invalid-feedback">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
-            @if($errors->has('password'))
-                <div class="invalid-feedback">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </div>
-            @endif
-        </div>
-
-        {{-- Confirm password field --}}
-        <label for="">Confime a senha</label>            
-        <div class="input-group mb-3">
-            <input type="password" name="password_confirmation"
-                   class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+            <div class="col-md-6">
+                {{-- Confirm password field --}}
+                <label for="">Confime a senha</label>            
+                <div class="input-group mb-3">
+                    <input type="password" name="password_confirmation"
+                        class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                        </div>
+                    </div>
+                    @if($errors->has('password_confirmation'))
+                        <div class="invalid-feedback">
+                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
-            @if($errors->has('password_confirmation'))
-                <div class="invalid-feedback">
-                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                </div>
-            @endif
-        </div>
+        </div>                            
 
-
+        <input type="hidden" name="logradouro" id="logradouro">
+        <input type="hidden" name="bairro" id="bairro">
+        <input type="hidden" name="localidade" id="localidade">
+        <input type="hidden" name="uf" id="uf">
 
         {{-- Register button --}}
         <button type="submit" id="btnRegister" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}" disabled>

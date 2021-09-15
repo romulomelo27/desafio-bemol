@@ -261,7 +261,7 @@ return [
         // ],
         [
             'text' => 'Meu Perfil',
-            'url'  => 'perfil',
+            'url'  => 'perfil/editar',
             'icon' => 'fas fa-fw fa-users',
         ],
         // [

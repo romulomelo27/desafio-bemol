@@ -52,6 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'cpf' => ['required', 'string', 'max:20', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cep' => ['required', 'string'],
             'nascimento' => ['required', 'date'],
@@ -65,11 +66,28 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
+    {      
+        // dd($data);  
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'cpf' => $this->removeMascara($data['cpf']),
+            'password' => Hash::make($data['password']),                        
+            'cep' => $this->removeMascara($data['cep']),
+            'nascimento' => $data['nascimento'],
+            'rua' => $data['logradouro'],           
+            'estado' => $data['uf'],
+            'cidade' => $data['localidade']            
         ]);
+    }
+
+    private function removeMascara($var){
+
+        $var = str_replace('.','',$var);
+        $var = str_replace('-','',$var);
+        $var = str_replace('/','',$var);
+
+        return $var;
     }
 }
