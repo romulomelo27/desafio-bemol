@@ -1,0 +1,7 @@
+1 - composer install
+2 - npm install
+3 - npm run dev
+4 - alterar o arquivo .env.example para .env
+5 - php artisan key:generate
+6 - configurar conexao do banco no .env
+7 - php artisa migrate
