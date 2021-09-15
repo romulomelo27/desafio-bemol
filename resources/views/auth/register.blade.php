@@ -12,10 +12,9 @@
 @endif
 
 @section('auth_header', __('adminlte::adminlte.register_message'))
-@section('auth_body')    
-    <div class="alert alert-warning" style="display: none" id="alertInfo"></div>
-    <input type="hidden" id="testeCep">
-    <input type="hidden" id="testeNascimento">
+@section('auth_body')
+<div id="app">    
+    <div class="alert alert-warning" v-if="statusInfo" id="alertInfo">@{{mensagem}}</div>
     <form action="{{ $register_url }}" method="post">
         {{ csrf_field() }}        
 
@@ -61,14 +60,13 @@
                 </div>
             @endif
         </div>       
-
         <div class="row">
             <div class="col-md-6">
                 {{-- cep field --}}
                 <label for="">Cep</label>
                 <div class="input-group mb-3">
-                    <input type="text" name="cep" id="cep" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}"
-                        value="{{ old('cep') }}" placeholder="CEP">
+                    <input type="text" name="cep" v-model="cep" id="cep" v-on:blur="buscarCep" maxlength="8" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}"
+                        value="{{ old('cep') }}">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             {{-- <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span> --}}
@@ -85,7 +83,7 @@
                 {{-- nascimento field --}}
                 <label for="">Nascimento</label>            
                 <div class="input-group mb-3">            
-                    <input type="date" id="nascimento" name="nascimento" class="form-control {{ $errors->has('nascimento') ? 'is-invalid' : '' }}"
+                    <input type="date" id="nascimento" v-model="nascimento" v-on:blur="validarIdade" name="nascimento" class="form-control {{ $errors->has('nascimento') ? 'is-invalid' : '' }}"
                         value="{{ old('nascimento') }}" >            
                     @if($errors->has('nascimento'))
                         <div class="invalid-feedback">
@@ -134,18 +132,19 @@
             </div>
         </div>                            
 
-        <input type="hidden" name="logradouro" id="logradouro">
-        <input type="hidden" name="bairro" id="bairro">
-        <input type="hidden" name="localidade" id="localidade">
-        <input type="hidden" name="uf" id="uf">
+        <input type="hidden" v-model="logradouro" name="logradouro" id="logradouro">
+        <input type="hidden" v-model="bairro" name="bairro" id="bairro">
+        <input type="hidden" v-model="localidade" name="localidade" id="localidade">
+        <input type="hidden" v-model="uf" name="uf" id="uf">
 
         {{-- Register button --}}
-        <button type="submit" id="btnRegister" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}" disabled>
+        <button type="submit" :disabled="disabledBtnSalvar" id="btnRegister" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-user-plus"></span>
             {{ __('adminlte::adminlte.register') }}
         </button>
 
     </form>
+</div>
 @stop
 
 @section('auth_footer')
