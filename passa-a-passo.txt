@@ -5,3 +5,4 @@
 5 - php artisan key:generate
 6 - configurar conexao do banco no .env
 7 - php artisa migrate
+8 - php artisan storage:link
