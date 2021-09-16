@@ -29,8 +29,7 @@ var app = new Vue({
                         this.uf = r.uf;
                         this.statusCep = true;
                         this.statusInfo = false;
-                        this.infoCep = false;
-                        this.checarValidacoes()
+                        this.infoCep = false;                        
                       }
                       else{
                         this.statusCep = false;
@@ -38,8 +37,9 @@ var app = new Vue({
                       }
                       
                   }
-              );
+              );              
           }
+          this.checarValidacoes();
         },
         buscarCPF: function() {
             if(this.cpf.length == 11){
@@ -59,6 +59,7 @@ var app = new Vue({
                     }
                 );
             }
+            this.checarValidacoes();
           },
         validarIdade: function(){
             let data_nascimento = new Date(this.nascimento);                
@@ -67,18 +68,22 @@ var app = new Vue({
 
             if(idade >= 18){
                 this.statusNascimento = true;
-                this.infoIdade = false;
-                this.checarValidacoes();
+                this.infoIdade = false;                
             }
             else{
                 this.statusNascimento = false;
                 this.infoIdade = true;
                 this.mensagem = 'Cadastro somente para maiores de Idade';
             }
+            this.checarValidacoes();
         },
         checarValidacoes: function(){
-            if(this.statusCep && this.statusNascimento && statusCPF){
+            
+            if(this.statusCPF && this.statusCep && this.statusNascimento){
                 this.disabledBtnSalvar = false;
+            }
+            else{
+                this.disabledBtnSalvar = true;
             }
         }
 
