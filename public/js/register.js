@@ -16,6 +16,7 @@ var app = new Vue({
       infoCep:false,
       infoCPF:false,
       infoIdade:false,
+      link:'',
     },
     methods: {
         buscarCep: function() {
@@ -43,7 +44,8 @@ var app = new Vue({
         },
         buscarCPF: function() {
             if(this.cpf.length == 11){
-                fetch('http://localhost/bemol/perfil/consultar-cpf/'+this.cpf).then(r => r.json()).then(
+                let url = document.querySelector("#url");
+                fetch(url.value+'/perfil/consultar-cpf/'+this.cpf).then(r => r.json()).then(
                     r => {
                         console.log(r);
                         if(r.status){                          

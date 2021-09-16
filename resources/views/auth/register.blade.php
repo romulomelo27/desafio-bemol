@@ -14,6 +14,7 @@
 @section('auth_header', __('adminlte::adminlte.register_message'))
 @section('auth_body')
 <div id="app">    
+    <input type="hidden" name="" value="{{url('')}}" id="url">
     {{-- <div class="alert alert-warning" v-if="statusInfo" id="alertInfo">@{{mensagem}}</div> --}}
     <p v-if="infoCPF" style="color:red" >* Cpf já cadastrado</p>
     <p v-if="infoIdade" style="color:red; margin-top:-20px">* Somente maior de idade</p>
