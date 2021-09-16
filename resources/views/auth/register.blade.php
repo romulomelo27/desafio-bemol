@@ -14,7 +14,10 @@
 @section('auth_header', __('adminlte::adminlte.register_message'))
 @section('auth_body')
 <div id="app">    
-    <div class="alert alert-warning" v-if="statusInfo" id="alertInfo">@{{mensagem}}</div>
+    {{-- <div class="alert alert-warning" v-if="statusInfo" id="alertInfo">@{{mensagem}}</div> --}}
+    <p v-if="infoCPF" style="color:red" >* Cpf já cadastrado</p>
+    <p v-if="infoIdade" style="color:red; margin-top:-20px">* Somente maior de idade</p>
+    <p v-if="infoCep" style="color:red; margin-top:-20px">* CEP não é do Amazonas</p>
     <form action="{{ $register_url }}" method="post">
         {{ csrf_field() }}        
 
@@ -36,7 +39,7 @@
         {{-- Email field --}}
         <label for="">CPF</label>
         <div class="input-group mb-3">
-            <input type="text" name="cpf" id="cpf" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+            <input type="text" name="cpf" v-model="cpf" v-on:blur="buscarCPF" id="cpf" minlength="11" maxlength="11" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
                 value="{{ old('cpf') }}">
             <div class="input-group-append">
                 <div class="input-group-text">

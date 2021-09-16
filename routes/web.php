@@ -28,5 +28,6 @@ Route::prefix('perfil')->group(function () {
     Route::post('/editar', [App\Http\Controllers\UsersController::class, 'salvarEdicao'])->name('perfil.editar.salvar');
     Route::get('/foto-perfil', [App\Http\Controllers\UsersController::class, 'viewFotoPefil'])->name('perfil.foto.perfil');
     Route::post('/foto-perfil', [App\Http\Controllers\UsersController::class, 'fotoPefilSalvar'])->name('perfil.foto.salvar');    
+    Route::get('/consultar-cpf/{cpf}', [App\Http\Controllers\UsersController::class, 'consultarCPF'])->name('perfil.consultar.cpf');
     
 });

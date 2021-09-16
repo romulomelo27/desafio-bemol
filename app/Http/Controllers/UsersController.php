@@ -16,7 +16,7 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('consultarCPF');
     }    
     
 
@@ -85,4 +85,17 @@ class UsersController extends Controller
         
     }
 
+    public function consultarCPF($cpf){
+
+        $users = User::where('cpf',$this->removeMascara($cpf))->get();
+
+        if(count($users) == 0){
+
+            return response()->json(['status'=>true, 'msg'=> 'Cpf não existe']);
+        }
+        else{
+            return response()->json(['status'=>false, 'msg'=>'Cpf já cadastrado']);
+        }
+        
+    }
 }
