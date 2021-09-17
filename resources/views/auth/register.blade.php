@@ -24,7 +24,7 @@
 
         {{-- Name field --}}        
         <div class="input-group mb-3">            
-            <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+            <input type="text" name="name" placeholder="Nome" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                    value="{{ old('name') }}" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -37,10 +37,9 @@
                 </div>
             @endif
         </div>
-        {{-- Email field --}}
-        <label for="">CPF</label>
+        {{-- Email field --}}        
         <div class="input-group mb-3">
-            <input type="text" name="cpf" v-model="cpf" v-on:blur="buscarCPF" id="cpf" minlength="11" maxlength="11" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+            <input type="text" placeholder="CPF" name="cpf" v-model="cpf" v-on:blur="buscarCPF" id="cpf" minlength="11" maxlength="11" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
                 value="{{ old('cpf') }}">
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -54,9 +53,8 @@
             @endif
         </div>
         {{-- Email field --}}                
-        <div class="form-group">
-            <label for="">E-mail</label>
-            <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+        <div class="form-group">            
+            <input type="email" placeholder="E-mail" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                 value="{{ old('email') }}">                    
             @if($errors->has('email'))
                 <div class="invalid-feedback">
